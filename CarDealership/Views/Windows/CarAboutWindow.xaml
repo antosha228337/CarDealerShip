@@ -1,0 +1,51 @@
+﻿<Window x:Class="CarDealership.Views.Windows.CarAboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarDealership.Views.Windows"
+        mc:Ignorable="d"
+        Title="CarAboutWindow" Height="450" Width="800">
+    <StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="D:\ИГЭУ\конструирование ПО\курсач\CarDealership\CarDealership\images\audi-r8-gt-1.jpg" Height="200" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <Image Source="D:\ИГЭУ\конструирование ПО\курсач\CarDealership\CarDealership\images\car2.jpg" Height="200" RenderOptions.BitmapScalingMode="HighQuality"/>
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+            <TextBlock Text="Марка:"/>
+            <TextBlock Text="Audi" Margin="6 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Модель:"/>
+            <TextBlock Text="R8" Margin="6 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Тип кузова:"/>
+            <TextBlock Text="Лифтбек" Margin="6 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Количетсво л. с.:"/>
+            <TextBlock Text="420" Margin="6 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Объем двигателя:"/>
+            <TextBlock Text="2.0" Margin="6 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Цена.:"/>
+            <Border Background="{StaticResource MaterialDesign.Brush.Secondary.Dark}" CornerRadius="4"  Margin="6 0">
+                <TextBlock Text="5 500 000 руб." Margin="4 2 4 2"/>
+            </Border>
+
+        </StackPanel>
+    </StackPanel>
+</Window>

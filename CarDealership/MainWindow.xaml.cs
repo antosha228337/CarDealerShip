@@ -27,5 +27,11 @@ namespace CarDealership
             CarFilterWindow window = new CarFilterWindow();
             if (window.ShowDialog() == false) return;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CarAboutWindow window = new();
+            if (window.ShowDialog() == false) return;
+        }
     }
 }
