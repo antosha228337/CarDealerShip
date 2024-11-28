@@ -17,6 +17,8 @@ public partial class Model
 
     public int? DiscountId { get; set; }
 
+    public byte[]? Image {  get; set; }
+
     public virtual CarBrand CarBrand { get; set; } = null!;
 
     public virtual Discount? Discount { get; set; }

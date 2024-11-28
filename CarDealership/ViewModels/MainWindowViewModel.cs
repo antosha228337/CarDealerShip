@@ -7,45 +7,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using CarDealership.Views;
+using System.Windows.Input;
+using CarDealership.Commands;
+using CarDealership.Views.Windows;
 
 namespace CarDealership.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
-        private List<Model> allmodels;
-        private CarDealershipMainContext context;
 
-        private IModificationRepository modificationRepository;
+        private UserControl current_view;
 
-        private List<ModificationDTO> allModifications;
-
-        public List<ModificationDTO> AllModifications
+        public UserControl CurrentView
         {
-            get => allModifications;
+            get => current_view;
             set
             {
-                allModifications = value;
-                OnPropertyChanged(nameof(AllModifications));
+                current_view = value;
+                OnPropertyChanged(nameof(CurrentView));
             }
         }
 
-        public List<Model> Allmodels
-        {
-            get => allmodels; 
-            set
-            {
-                allmodels = value;
-                OnPropertyChanged(nameof(Allmodels));
-            }
-        }
+
+        public ICommand ShowUserViewCommand { get; set; }
+        public ICommand ShowCarsViewCommand { get; set; }
 
         public MainWindowViewModel()
         {
+            CurrentView = new AboutUserView();
 
+            ShowUserViewCommand = new RelayCommand(OnShowUserViewCommandExecuted);
+            ShowCarsViewCommand = new RelayCommand(OnShowCarsViewCommandExecuted);
 
-            modificationRepository = new ModificationRepository();
-            AllModifications = modificationRepository.GetAll();
+        }
 
+        private void OnShowUserViewCommandExecuted(object p)
+        {
+            CurrentView = new AboutUserView();
+        }
+
+        private void OnShowCarsViewCommandExecuted(object p)
+        {
+            CurrentView = new CarListView();
         }
     }
 }

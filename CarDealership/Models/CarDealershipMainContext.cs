@@ -227,6 +227,7 @@ public partial class CarDealershipMainContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.StockCuantity).HasColumnName("stock_cuantity");
+            entity.Property(e => e.Image).HasColumnName("image");
 
             entity.HasOne(d => d.CarBrand).WithMany(p => p.Models)
                 .HasForeignKey(d => d.CarBrandId)

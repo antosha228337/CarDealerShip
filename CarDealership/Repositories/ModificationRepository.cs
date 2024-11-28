@@ -26,5 +26,25 @@ namespace CarDealership.Repositories
                 .Include(m => m.DriveType)
                 .Include(m => m.BodyType).Select(i => new ModificationDTO(i)).ToList();
         }
+
+        public int GetAvailableCount(int mod_id)
+        {
+            int countBookedcars =  db.Bookings.Where(b => b.Car.ModificationId == mod_id).Count();
+            int stockQuantity = GetStockQuantity(mod_id);
+            return stockQuantity - countBookedcars;
+        }
+
+        public int GetStockQuantity(int mod_id)
+        {
+            return db.Cars.Where(c => c.ModificationId == mod_id).Count();
+        }
+
+        public List<ModificationDTO> GetByFilter(CarBrandDTO carBrand, EngineTypeDTO engineType, TransmissionTypeDTO trType, BodyTypeDTO bodyType)
+        {
+            return db.Modifications.Where(m => (carBrand == null || m.Model.CarBrandId == carBrand.Id)
+                && (bodyType == null || m.BodyTypeId == bodyType.Id)
+                && (trType == null || trType.Id == m.TransmissionTypeId)
+                && (engineType == null || engineType.Id == m.EngineTypeId)).Select(i => new ModificationDTO(i)).ToList();
+        }
     }
 }

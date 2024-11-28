@@ -1,4 +1,8 @@
-﻿namespace CarDealership.DTO
+﻿using System.IO;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+
+namespace CarDealership.DTO
 {
     public class ModificationDTO
     {
@@ -24,30 +28,8 @@
         public string BodyType { get; set; }
 
         public string DriveType { get; set; }
-
-        //public int ModelId { get; set; }
-
-        //public int TransmissionTypeId { get; set; }
-
-        //public int EngineTypeId { get; set; }
-
-        //public int DriveTypeId { get; set; }
-
-        //public int BodyTypeId { get; set; }
-
-        //public virtual BodyType BodyType { get; set; } = null!;
-
-        //public virtual ICollection<Car> Cars { get; set; } = new List<Car>();
-
-        //public virtual DriveType DriveType { get; set; } = null!;
-
-        //public virtual EngineType EngineType { get; set; } = null!;
-
-        //public virtual Model Model { get; set; } = null!;
-
-        //public virtual TransmissionType TransmissionType { get; set; } = null!;
-
-
+        
+        public BitmapImage? Image { get; set; }
 
         public ModificationDTO(Modification modification)
         {
@@ -62,6 +44,28 @@
             BodyType = modification.BodyType.Name;
             EngineType = modification.EngineType.Name;
             DriveType = modification.DriveType.Name;
+            Image = ConvertByteArrayToImage(modification.Model.Image);
+        }
+
+
+        public static BitmapImage ConvertByteArrayToImage(byte[] byteArray)
+        {
+            if (byteArray == null || byteArray.Length == 0)
+                return null;
+
+            var image = new BitmapImage();
+            using (var memStream = new MemoryStream(byteArray))
+            {
+                memStream.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = memStream;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
         }
     }
 }

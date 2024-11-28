@@ -3,9 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:CarDealership.ViewModels"
         xmlns:local="clr-namespace:CarDealership.Views.Windows"
         mc:Ignorable="d"
         Title="Фильтр" Height="400" Width="400" ResizeMode="NoResize">
+
+    <d:Window.DataContext>
+        <vm:CarFilterWindowViewModel/>
+    </d:Window.DataContext>
+    
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -43,49 +50,34 @@
         </Grid.Resources>
 
         <TextBlock Text="Марка:"/>
-        <ComboBox SelectedIndex="0" Grid.Column="1">
-            <ComboBoxItem Content="Любая"/>
-            <ComboBoxItem Content="Audi"/>
-            <ComboBoxItem Content="BMW"/>
-            <ComboBoxItem Content="Renault"/>
-        </ComboBox>
+        <ComboBox Grid.Column="1" ItemsSource="{Binding Brands}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCarBrand}"/>
+
+
 
         <TextBlock Text="Тип кузова:" Grid.Row="1" Grid.Column="0"/>
-        <ComboBox SelectedIndex="0" Grid.Row="1" Grid.Column="1">
-            <ComboBoxItem Content="Любой"/>
-            <ComboBoxItem Content="Седан"/>
-            <ComboBoxItem Content="Хэтчбек"/>
-            <ComboBoxItem Content="Лифтбек"/>
-        </ComboBox>
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding BodyTypes}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedBodyType}"/>
+
 
 
         <TextBlock Text="Коробка:" Grid.Row="2" Grid.Column="0"/>
-        <ComboBox SelectedIndex="0" Grid.Row="2" Grid.Column="1">
-            <ComboBoxItem Content="Любая"/>
-            <ComboBoxItem Content="Механика"/>
-            <ComboBoxItem Content="Автомат"/>
-            <ComboBoxItem Content="Робот"/>
-        </ComboBox>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Transmissions}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTransmissionType}"/>
+
 
 
         <TextBlock Text="Двигатель:"  Grid.Row="3" Grid.Column="0"/>
-        <ComboBox SelectedIndex="0" Grid.Row="3" Grid.Column="1">
-            <ComboBoxItem Content="Любой"/>
-            <ComboBoxItem Content="Бензиновый"/>
-            <ComboBoxItem Content="Дизельный"/>
-            <ComboBoxItem Content="Гибрид"/>
-        </ComboBox>
+        <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Engines}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEngineType}"/>
+
 
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2">
-            <TextBlock Text="Объем от, л"/>
-            <TextBox Width="40"/>
+            <TextBlock Text="Цена от, руб"/>
+            <materialDesign:NumericUpDown Width="80" />
             <TextBlock Text="до"/>
-            <TextBox Width="40"/>
+            <materialDesign:NumericUpDown Width="80"/>
         </StackPanel>
 
-        <Button Content="Отменить" Grid.Column="0" Grid.Row="5" Margin="4"/>
+        <Button Content="Отменить" Grid.Column="0" Grid.Row="5" Margin="4" Click="Button_Cancel_Click"/>
 
-        <Button Content="Применить" Grid.Column="1" Grid.Row="5" Margin="4" Style="{StaticResource MaterialDesignFlatDarkBgButton}"/>
+        <Button Content="Применить" Grid.Column="1" Grid.Row="5" Margin="4" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Click="Button_Ok_Click"/>
 
 
     </Grid>
