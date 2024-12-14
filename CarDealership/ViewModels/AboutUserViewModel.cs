@@ -18,8 +18,9 @@ namespace CarDealership.ViewModels
 
         private CustomerDTO customer;
 
-        private IUserRepository userRepo;
+        private ICustomerRepository userRepo;
         private IBookingRepository bookingRepo;
+        private ISaleRepository saleRepo;
         
         
         public ICommand CancelBooking {  get; set; }
@@ -34,7 +35,7 @@ namespace CarDealership.ViewModels
             }
         }
 
-        public List<BookingDTO> bookings;
+        private List<BookingDTO> bookings;
 
         public ObservableCollection<BookingDTO> Bookings
         {
@@ -43,15 +44,30 @@ namespace CarDealership.ViewModels
             
         }
 
+        private List<SaleDTO> sales;
+
+        public List<SaleDTO> Sales
+        {
+            get => sales;
+            set
+            {
+                sales = value;
+                OnPropertyChanged(nameof(Sales));
+            }
+        }
+
+
         public AboutUserViewModel()
         {
-            userRepo = new UserRepository();
-            bookingRepo = new BookingRepository();          
+            userRepo = new CustomerRepository();
+            bookingRepo = new BookingRepository();
+            saleRepo = new SaleRepository();
 
             Customer = userRepo.GetCurrentCustomer();
             Bookings = new(bookingRepo.GetBookingsByCustomerId(Customer.Id));
 
             CancelBooking = new RelayCommand(OnCancelBookingExecuted);
+            Sales = saleRepo.GetAll();
         }
 
         public void OnCancelBookingExecuted(object p)

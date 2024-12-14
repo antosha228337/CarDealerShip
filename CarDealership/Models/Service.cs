@@ -11,5 +11,7 @@ public partial class Service
 
     public int Price { get; set; }
 
+    public byte[]? Image { get; set; }
+
     public virtual ICollection<ServiceSale> ServiceSales { get; set; } = new List<ServiceSale>();
 }

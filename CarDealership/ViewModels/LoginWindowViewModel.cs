@@ -21,7 +21,8 @@ namespace CarDealership.ViewModels
         private string _login;
         private string _errorMessage;
 
-        IUserRepository userRepo;
+        ICustomerRepository userRepo;
+        ISellerRepository sellerRepo;
 
         public string Login
         {
@@ -61,7 +62,8 @@ namespace CarDealership.ViewModels
         public LoginWindowViewModel()
         {
             _errorMessage = "";
-            userRepo = new UserRepository();
+            userRepo = new CustomerRepository();
+            sellerRepo = new SellerRepository();
 
             ExitCommand = new RelayCommand(OnExitCommandExecuted, CanExitCommandExecute);
             LoginCommand = new RelayCommand(OnLoginCommandExecuted, CanLoginCommandExecute);
@@ -76,8 +78,19 @@ namespace CarDealership.ViewModels
             if (userRepo.CheckUserExistence(new System.Net.NetworkCredential(Login, Password)))
             {
 
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Login), null);
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Login), ["Customer"]);
+                
                 MainWindow w = new();
+                w.Show();
+
+                var login_window = Application.Current.Windows.OfType<LoginWindow>().First();
+                login_window?.Close();
+            }
+            else if (sellerRepo.CheckUserExistence(new System.Net.NetworkCredential(Login, Password)))
+            {
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Login), ["Seller"]);
+
+                SellerMainWindow w = new();
                 w.Show();
 
                 var login_window = Application.Current.Windows.OfType<LoginWindow>().First();

@@ -15,7 +15,20 @@ namespace CarDealership.Repositories
 
         public void Add(ModificationDTO modification)
         {
-            throw new NotImplementedException();
+            db.Modifications.Add(new Modification()
+            {
+                Name = modification.Name,
+                EngineCapacity = modification.EngineCapacity,
+                Horsepower = modification.Horsepower,
+                Price = modification.Price,
+                ModelId = modification.ModelId,
+                TransmissionTypeId = modification.TransmissionTypeId,
+                EngineTypeId = modification.EngineTypeId,
+                DriveTypeId = modification.DriveTypeId,
+                BodyTypeId = modification.BodyTypeId,
+            });
+
+            db.SaveChanges();
         }
 
         public List<ModificationDTO> GetAll()
@@ -45,6 +58,50 @@ namespace CarDealership.Repositories
                 && (bodyType == null || m.BodyTypeId == bodyType.Id)
                 && (trType == null || trType.Id == m.TransmissionTypeId)
                 && (engineType == null || engineType.Id == m.EngineTypeId)).Select(i => new ModificationDTO(i)).ToList();
+        }
+
+        public void Update(ModificationDTO mod)
+        {
+            var m = db.Modifications.Find(mod.Id);
+            if (m != null)
+            {
+                m.Name = mod.Name;
+                m.EngineCapacity = mod.EngineCapacity;
+                m.Horsepower = mod.Horsepower;
+                m.Price = mod.Price;
+                m.TransmissionTypeId = mod.TransmissionTypeId;
+                m.EngineTypeId = mod.EngineTypeId;
+                m.BodyTypeId = mod.BodyTypeId;
+                m.DriveTypeId = mod.DriveTypeId;
+                m.ModelId = mod.ModelId;
+                db.SaveChanges();
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            var mod = db.Modifications.Find(id);
+
+            if (mod != null)
+            {
+                db.Modifications.Remove(mod);
+
+                return Save();
+            }
+            return false;
+        }
+
+        public bool Save()
+        {
+            try
+            {
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

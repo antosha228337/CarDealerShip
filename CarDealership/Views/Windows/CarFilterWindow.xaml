@@ -68,12 +68,12 @@
         <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Engines}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEngineType}"/>
 
 
-        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2">
+        <!--<StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2">
             <TextBlock Text="Цена от, руб"/>
             <materialDesign:NumericUpDown Width="80" />
             <TextBlock Text="до"/>
             <materialDesign:NumericUpDown Width="80"/>
-        </StackPanel>
+        </StackPanel>-->
 
         <Button Content="Отменить" Grid.Column="0" Grid.Row="5" Margin="4" Click="Button_Cancel_Click"/>
 

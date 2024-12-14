@@ -1,0 +1,54 @@
+﻿<Window x:Class="CarDealership.Views.Windows.SellerMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarDealership.Views.Windows"
+        xmlns:vm="clr-namespace:CarDealership.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Автосалон(профиль: продавец)" Height="450" Width="1300">
+
+    <Window.DataContext>
+        <vm:SellerWindowViewModel/>
+    </Window.DataContext>
+
+    <DockPanel>
+
+        <Border>
+            <StackPanel Orientation="Vertical" Margin="4">
+
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignIconForegroundButton}">
+                        <Setter Property="Margin" Value="2"/>
+                    </Style>
+                </StackPanel.Resources>
+
+                <RadioButton Command="{Binding ShowDataStorageCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Database"/>
+                        <TextBlock Text="Данные"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton Command="{Binding ShowBookingViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Book"/>
+                        <TextBlock Text="Брони"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton Command="{Binding ShowSalesCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Sale"/>
+                        <TextBlock Text="Продажи"/>
+                    </StackPanel>
+                </RadioButton>
+
+            </StackPanel>
+        </Border>
+
+        <ContentControl Content="{Binding CurrentView}"/>
+
+    </DockPanel>
+</Window>

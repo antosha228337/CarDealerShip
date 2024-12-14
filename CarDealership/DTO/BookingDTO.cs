@@ -16,6 +16,7 @@ namespace CarDealership.DTO
 
         public int CustomerId { get; set; }
 
+
         public string CarBrand { get; set; }
 
         public string CarModel { get; set; }
@@ -25,6 +26,12 @@ namespace CarDealership.DTO
         public string CarVin {  get; set; }
 
         public int CarPrice { get; set; }
+
+        public string CustomerFirstName { get; set; }
+
+        public string CustomerLastName { get; set; }
+
+        public string CustomerPhone { get; set; }
 
         public BookingDTO()
         {
@@ -42,6 +49,10 @@ namespace CarDealership.DTO
             CarModification = booking.Car.Modification.Name;
             CarPrice = booking.Car.Modification.Price;
             CarVin = booking.Car.Vin;
+
+            CustomerFirstName = booking.Customer.FisrtName;
+            CustomerLastName = booking.Customer.LastName;
+            CustomerPhone = booking.Customer.PhoneNumber;
         }
     }
 }

@@ -11,8 +11,12 @@ namespace CarDealership.Interfaces.Repositories
     {
         public List<BookingDTO> GetBookingsByCustomerId(int customer_id);
 
+        public int GetCountBookingsByCustomerId(int id);
+
         public void AddBooking(BookingDTO booking);
 
         public void Delete(int id);
+
+        public List<BookingDTO> GetAll();
     }
 }

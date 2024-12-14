@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:CarDealership.Views.Windows"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:CarDealership.ViewModels"
-        Title="LoginWindow" Height="350" Width="400" WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        Title="Аторизация" Height="350" Width="400" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
 
     <Window.DataContext>
         <vm:LoginWindowViewModel/>
     </Window.DataContext>
     
     <Grid>
-        <Border Background="White" CornerRadius="10" Padding="20">
+        <Border Background="White" Padding="20">
             <StackPanel>
                 <TextBlock Text="Автосалон" 
                            FontSize="24" 

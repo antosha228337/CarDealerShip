@@ -16,12 +16,17 @@ namespace CarDealership.Repositories
 
         public BookingRepository()
         {
-            db.Bookings.Include(b => b.Car).ThenInclude(c => c.Modification).ThenInclude(m => m.Model).ThenInclude(m => m.CarBrand).ToList();
+            db.Bookings.Include(b => b.Car).ThenInclude(c => c.Modification).ThenInclude(m => m.Model).ThenInclude(m => m.CarBrand).Include(b => b.Customer).ToList();
         }
 
         public List<BookingDTO> GetBookingsByCustomerId(int customer_id)
         {
             return db.Bookings.Where(b => b.CustomerId == customer_id).Select(i => new BookingDTO(i)).ToList();
+        }
+
+        public List<BookingDTO> GetAll()
+        {
+            return db.Bookings.Select(i => new BookingDTO(i)).ToList();
         }
 
         public void AddBooking(BookingDTO booking) 
@@ -44,6 +49,11 @@ namespace CarDealership.Repositories
                 db.Bookings.Remove(b);
                 db.SaveChanges();
             }
+        }
+
+        public int GetCountBookingsByCustomerId(int id)
+        {
+            return db.Bookings.Count(b => b.CustomerId == id);
         }
     }
 }

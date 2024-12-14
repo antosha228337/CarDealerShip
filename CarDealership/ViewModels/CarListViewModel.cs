@@ -18,7 +18,7 @@ namespace CarDealership.ViewModels
     {
         private IModificationRepository modificationRepository;
         private IBookingRepository bookingRepository;
-        private IUserRepository userRepository;
+        private ICustomerRepository userRepository;
         private ICarRepository carRepository;
 
         private List<ModificationDTO> allModifications;
@@ -40,7 +40,7 @@ namespace CarDealership.ViewModels
         {
             modificationRepository = new ModificationRepository();
             bookingRepository = new BookingRepository();
-            userRepository = new UserRepository();
+            userRepository = new CustomerRepository();
             carRepository = new CarRepository();
 
             AllModifications = modificationRepository.GetAll();
@@ -63,11 +63,18 @@ namespace CarDealership.ViewModels
         {
             if (p is ModificationDTO mod)
             {
+                int customer_id = userRepository.GetCurrentCustomer().Id;
+
+                if (bookingRepository.GetCountBookingsByCustomerId(customer_id) == 2)
+                {
+                    MessageBox.Show("Вы можете забронаровать только 2 автомобиля");
+                    return;
+                }
+                
                 BookingDTO booking = new();
 
-                booking.CustomerId = userRepository.GetCurrentCustomer().Id;
+                booking.CustomerId = customer_id;
                 booking.CarId = carRepository.GetAvailableByModification(mod.Id).Id;
-                //booking.CarId = carRepository.GetCarsByModification(mod.Id)[0].Id;
                 booking.Date = DateOnly.FromDateTime(DateTime.Now);
 
                 bookingRepository.AddBooking(booking);  

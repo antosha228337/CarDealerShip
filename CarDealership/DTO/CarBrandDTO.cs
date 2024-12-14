@@ -15,6 +15,11 @@ namespace CarDealership.DTO
 
         public string Country { get; set; } = null!;
 
+        public CarBrandDTO()
+        {
+            
+        }
+
         public CarBrandDTO(CarBrand car)
         {
             Id = car.Id;

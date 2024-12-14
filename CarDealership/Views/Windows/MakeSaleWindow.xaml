@@ -1,0 +1,236 @@
+﻿<Window x:Class="CarDealership.Views.Windows.MakeSaleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarDealership.Views.Windows"
+        xmlns:vm="clr-namespace:CarDealership.ViewModels"
+        mc:Ignorable="d"
+        Title="Оформление продажи" Height="600" Width="800" d:Height="auto">
+
+    <d:Window.DataContext>
+        <vm:MakeSaleViewModel/>
+    </d:Window.DataContext>
+   
+
+    <ScrollViewer>
+        <Grid Margin="10">
+
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="Покупатель" FontSize="20"/>
+                <Border Background="WhiteSmoke" Padding="10">
+                    <StackPanel>
+                        <TextBlock FontSize="16">
+                            <Run Text="ФИО:"/>
+                            <Run Text="{Binding CustomerFIO}" FontWeight="DemiBold"/>
+                        </TextBlock>
+
+                        <TextBlock FontSize="16">
+                            <Run Text="Телефон:"/>
+                            <Run Text="{Binding CustomerPN}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <TextBlock Text="Продавец" FontSize="20" Margin="0 10 0 0"/>
+                <Border Background="WhiteSmoke" Padding="10">
+                    <StackPanel>
+                        <TextBlock FontSize="16">
+                            <Run Text="ФИО:"/>
+                            <Run Text="{Binding SellerFIO}" FontWeight="DemiBold"/>
+                        </TextBlock>
+
+                    </StackPanel>
+                </Border>
+
+                <TextBlock Text="Автомобиль" FontSize="20" Margin="0 10 0 0"/>
+                <Border Background="WhiteSmoke" Padding="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="{Binding CarImage}" Height="150" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                        <StackPanel Grid.Column="1" Margin="10 0 0 0">
+
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="16"/>
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock>
+                                <Run Text="Марка: "/>
+                                <Run Text="{Binding CarBrand}" FontWeight="DemiBold"/>
+                            </TextBlock>
+
+                            <TextBlock>
+                                <Run Text="Модель: "/>
+                                <Run Text="{Binding CarModel}" FontWeight="DemiBold"/>
+                            </TextBlock>
+
+                            <TextBlock>
+                                <Run Text="Модификация: "/>
+                                <Run Text="{Binding CarModification}" FontWeight="DemiBold"/>
+                            </TextBlock>
+
+                            <TextBlock>
+                                <Run Text="VIN: "/>
+                                <Run Text="{Binding CarVIN}" FontWeight="DemiBold"/>
+                            </TextBlock>
+
+                            <Separator/>
+
+                            <TextBlock>
+                                <Run Text="Цена: "/>
+                                <Run Text="{Binding CarPrice}" FontWeight="DemiBold"/>
+                                <Run Text="рублей"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+
+                <TextBlock Text="Дополнительные услуги" FontSize="20"/>
+                <Border Background="WhiteSmoke" Padding="10">
+                    <ItemsControl ItemsSource="{Binding Services}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Width="auto" Height="100" CommandParameter="{Binding}" Command="{Binding DataContext.AddServiceCommand, RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource MaterialDesignFilterChipSecondaryOutlineCheckBox}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock>
+                                            <Run Text="Цена"/>
+                                            <Run Text="{Binding Price}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </CheckBox>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+
+                <TextBlock Text="Кредит" FontSize="20"/>
+                <Border Background="WhiteSmoke" Padding="10">
+                    <StackPanel>
+
+                        <CheckBox Content="Воспользоваться кредитованием" IsChecked="{Binding UseCredit}"/>
+
+                        <Expander IsExpanded="{Binding UseCredit}">
+                            <StackPanel>
+                                <ItemsControl Margin="10" ItemsSource="{Binding Credits}" IsEnabled="{Binding UseCredit}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <RadioButton GroupName="creditRB" CommandParameter="{Binding}" Command="{Binding DataContext.ChangeCreditCommand, RelativeSource={RelativeSource AncestorType=Window}}" Height="50" Style="{StaticResource MaterialDesignChoiceChipSecondaryOutlineRadioButton}">
+                                                <StackPanel>
+                                                    <TextBlock>
+                                                        <Run Text="Процентаня ставка"/>
+                                                        <Run Text="{Binding InterestRate}" FontWeight="DemiBold"/>
+                                                        <Run Text="% годовых"/>
+                                                    </TextBlock>
+
+                                                    <TextBlock>
+                                                        <Run Text="Период"/>
+                                                        <Run Text="{Binding Period}" FontWeight="DemiBold"/>
+                                                        <Run Text="лет"/>
+                                                    </TextBlock>
+                                                </StackPanel>
+
+
+                                            </RadioButton>
+
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <Separator Margin="0 10"/>
+
+                                <!--<TextBlock FontSize="16">
+                                    <Run Text="Итоговая стоимость:" />
+                                    <Run Text="{Binding TotalPrice}" FontWeight="DemiBold"/>
+                                    <Run Text="рублей"/>
+                                </TextBlock>-->
+
+                                <TextBlock FontSize="16">
+                                    <Run Text="Переплата:" />
+                                    <Run Text="{Binding OverPayment}" FontWeight="DemiBold"/>
+                                    <Run Text="рублей"/>
+                                </TextBlock>
+
+                                <TextBlock FontSize="16">
+                                    <Run Text="Ежемесячный платеж:" />
+                                    <Run Text="{Binding MonthPayment}" FontWeight="DemiBold"/>
+                                    <Run Text="рублей"/>
+                                </TextBlock>
+
+                            </StackPanel>
+                        </Expander>
+                        
+                                             
+                    </StackPanel>
+                    
+                    
+                </Border>
+
+                <TextBlock Text="Итого" FontSize="20"/>
+
+                <Border Background="WhiteSmoke" Padding="10">
+                    <StackPanel>
+
+                        <TextBlock>
+                            <Run Text="Цена автомобиля с учетом кредита: "/>
+                            <Run Text="{Binding TotalPrice}" FontWeight="DemiBold"/>
+                            <Run Text="рублей"/>
+                        </TextBlock>
+
+                        <TextBlock>
+                            <Run Text="Цена доп. услуг: "/>
+                            <Run Text="{Binding ServicesPrice}" FontWeight="DemiBold"/>
+                            <Run Text="рублей"/>
+                        </TextBlock>
+
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Отмена" Style="{StaticResource MaterialDesignPaperLightButton}" Click="Button_Cancel_Click"/>
+                <Button Grid.Column="1" Content="Оформить" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}" Click="Button_Ok_Click"/>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+    
+    
+</Window>

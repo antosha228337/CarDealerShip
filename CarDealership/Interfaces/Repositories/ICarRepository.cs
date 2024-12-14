@@ -11,5 +11,10 @@ namespace CarDealership.Interfaces.Repositories
     {
         List<CarDTO> GetCarsByModification(int modification_id);
         CarDTO GetAvailableByModification(int mod_id);
+        List<CarDTO> GetAll();
+        bool Delete(int id);
+        void Add(CarDTO car);
+        void Update(CarDTO car);
+        CarDTO GetById(int id);
     }
 }

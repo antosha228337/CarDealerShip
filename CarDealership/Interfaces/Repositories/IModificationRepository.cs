@@ -5,6 +5,8 @@ namespace CarDealership.Interfaces.Repositories
     public interface IModificationRepository
     {
         void Add(ModificationDTO modification);
+        void Update(ModificationDTO mod);
+        bool Delete(int id);
         List<ModificationDTO> GetAll();
         int GetStockQuantity(int mod_id);
         int GetAvailableCount(int mod_id);

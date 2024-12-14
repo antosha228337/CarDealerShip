@@ -15,7 +15,7 @@
     
     <DockPanel>
 
-        <Border >
+        <Border>
             <StackPanel Orientation="Vertical" Margin="4">
 
                 <StackPanel.Resources>
@@ -24,32 +24,16 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <!--<Button Command="{Binding ShowCarsViewCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="Car"/>
-                    </Button.Content>
-                </Button>
+                <!--<CheckBox Command="{Binding ChangeThemeCommand}" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>-->
 
-                <Button Command="{Binding ShowUserViewCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="Account"/>
-                    </Button.Content>
-                </Button>
-
-                <Button>
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="Basket"/>
-                    </Button.Content>
-                </Button>-->
-
-                <RadioButton Command="{Binding ShowCarsViewCommand}" Style="{StaticResource MaterialDesignTabRadioButtonLeft}">
+                <RadioButton Command="{Binding ShowCarsViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Car"/>
                         <TextBlock Text="Авто"/>
                     </StackPanel>
                 </RadioButton>
 
-                <RadioButton Command="{Binding ShowUserViewCommand}" Style="{StaticResource MaterialDesignTabRadioButtonLeft}">
+                <RadioButton Command="{Binding ShowUserViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Account"/>
                         <TextBlock Text="Профиль"/>

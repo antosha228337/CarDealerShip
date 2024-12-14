@@ -390,6 +390,7 @@ public partial class CarDealershipMainContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
+            entity.Property(e => e.Image).HasColumnName("image");
             entity.Property(e => e.Price).HasColumnName("price");
         });
 

@@ -1,0 +1,113 @@
+﻿<Window x:Class="CarDealership.Views.Windows.ModificationEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarDealership.Views.Windows"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:CarDealership.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        Title="Редактирование комплектации" Height="450" Width="400" ResizeMode="NoResize">
+
+    <d:Window.DataContext>
+        <vm:ModificationEditWindowViewModel/>
+    </d:Window.DataContext>
+    
+    
+    <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Модель"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding CarBrand}" FontWeight="DemiBold"/>
+                                <Run Text="{Binding Name}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Grid>
+
+            <Separator/>
+
+            <Grid>
+
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Модификация"/>
+                <TextBox Text="{Binding Modification}" Grid.Column="1" FontSize="14" Margin="4"/>
+
+                <TextBlock Grid.Row="1" Text="Кол-во лошадиных сил"/>
+                <metro:NumericUpDown Value="{Binding HorsePower}" Margin="4" Grid.Row="1" Grid.Column="1" Minimum="0" NumericInputMode="Numbers" Maximum="1200" HideUpDownButtons="True" BorderBrush="{StaticResource MaterialDesign.Brush.Primary}"/>
+
+                <TextBlock Grid.Row="2" Text="Мощность двигателя" />
+                <metro:NumericUpDown Value="{Binding EngineCapacity}" Margin="4" Grid.Row="2" Grid.Column="1" Minimum="0" NumericInputMode="Decimal" Maximum="3.0" HideUpDownButtons="True" BorderBrush="{StaticResource MaterialDesign.Brush.Primary}"/>
+
+                <TextBlock Grid.Row="3" Text="Цена"/>
+                <metro:NumericUpDown Value="{Binding Price}" Margin="4" Grid.Row="3" Grid.Column="1" Minimum="0" NumericInputMode="Numbers" Maximum="99999999" HideUpDownButtons="True" BorderBrush="{StaticResource MaterialDesign.Brush.Primary}"/>
+
+                <TextBlock Grid.Row="4" Text="Тип двигателя"/>
+                <ComboBox SelectedItem="{Binding SelectedEngineType}" Margin="4" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding EngineTypes}" DisplayMemberPath="Name"/>
+
+                <TextBlock Grid.Row="5" Text="Тип кузова"/>
+                <ComboBox SelectedItem="{Binding SelectedBodyType}" Margin="4" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding BodyTypes}" DisplayMemberPath="Name"/>
+
+                <TextBlock Grid.Row="6" Text="Трансмиссия"/>
+                <ComboBox SelectedItem="{Binding SelectedTransmission}" Margin="4" Grid.Row="6" Grid.Column="1" ItemsSource="{Binding TransmissionTypes}" DisplayMemberPath="Name"/>
+
+                <TextBlock Grid.Row="7" Text="Тип привода"/>
+                <ComboBox SelectedItem="{Binding SelectedDriveType}" Margin="4" Grid.Row="7" Grid.Column="1" ItemsSource="{Binding DriveTypes}" DisplayMemberPath="Name"/>
+
+            </Grid>
+                  
+
+        </StackPanel>
+
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Отмена" Style="{StaticResource MaterialDesignFlatLightButton}" Click="Button_Cancel_Click"/>
+            <Button Grid.Column="1" Content="Сохранить" Style="{StaticResource MaterialDesignFlatLightButton}" Click="Button_Ok_Click"/>
+        </Grid>
+    </Grid>
+</Window>

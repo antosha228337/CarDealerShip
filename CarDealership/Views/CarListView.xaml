@@ -24,6 +24,11 @@
             <Button Command="{Binding ApplyCarFilterCommand}">
                 <materialDesign:PackIcon Kind="Settings"/>
             </Button>
+
+            <TextBlock>
+                <Run Text="Найденно модификаций:"/>
+                <Run Text="{Binding AllModifications.Count, Mode=OneWay}"/>
+            </TextBlock>
         </StackPanel>
         
         <ScrollViewer Grid.Row="1">

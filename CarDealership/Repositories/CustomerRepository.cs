@@ -9,13 +9,18 @@ using System.Threading.Tasks;
 
 namespace CarDealership.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class CustomerRepository : ICustomerRepository
     {
 
         CarDealershipMainContext db = new();
 
         public bool CheckUserExistence(NetworkCredential credential) =>
             db.Customers.Any(customer => customer.Login == credential.UserName && customer.Password == credential.Password);
+
+        public CustomerDTO GetByID(int id)
+        {
+            return new(db.Customers.Find(id));
+        }
 
         public CustomerDTO GetCurrentCustomer()
         {
