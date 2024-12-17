@@ -18,5 +18,8 @@ namespace CarDealership.Interfaces.Repositories
         public void Delete(int id);
 
         public List<BookingDTO> GetAll();
+
+        public bool IsBookingAvailable(int customerId, int modId);
+
     }
 }

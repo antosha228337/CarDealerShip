@@ -9,5 +9,7 @@ namespace CarDealership.Interfaces.Repositories
         public CustomerDTO? GetCustomerByLogin(string login);
         public CustomerDTO GetCurrentCustomer();
         public CustomerDTO GetByID(int id);
+        public void Add(CustomerDTO c);
+        public bool CheckAvailableLogin(string login);
     }
 }

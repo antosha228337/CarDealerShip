@@ -52,12 +52,36 @@ namespace CarDealership.Repositories
             return db.Cars.Where(c => c.ModificationId == mod_id).Count();
         }
 
-        public List<ModificationDTO> GetByFilter(CarBrandDTO carBrand, EngineTypeDTO engineType, TransmissionTypeDTO trType, BodyTypeDTO bodyType)
+        public List<ModificationDTO> GetByFilter(CarBrandDTO carBrand, EngineTypeDTO engineType, TransmissionTypeDTO trType, BodyTypeDTO bodyType, bool isAv)
         {
-            return db.Modifications.Where(m => (carBrand == null || m.Model.CarBrandId == carBrand.Id)
-                && (bodyType == null || m.BodyTypeId == bodyType.Id)
-                && (trType == null || trType.Id == m.TransmissionTypeId)
-                && (engineType == null || engineType.Id == m.EngineTypeId)).Select(i => new ModificationDTO(i)).ToList();
+            //return db.Modifications.Where(m => (carBrand == null || m.Model.CarBrandId == carBrand.Id)
+            //    && (bodyType == null || m.BodyTypeId == bodyType.Id)
+            //    && (trType == null || trType.Id == m.TransmissionTypeId)
+            //    && (engineType == null || engineType.Id == m.EngineTypeId)
+            //    && (isAv == true && GetAvailableCount(m.Id) > 0)).Select(i => new ModificationDTO(i)).ToList();
+
+            var query = db.Modifications.AsQueryable();
+
+            if (carBrand != null)
+                query = query.Where(m => m.Model.CarBrandId == carBrand.Id);
+
+            if (bodyType != null)
+                query = query.Where(m => m.BodyTypeId == bodyType.Id);
+
+            if (trType != null)
+                query = query.Where(m => m.TransmissionTypeId == trType.Id);
+
+            if (engineType != null)
+                query = query.Where(m => m.EngineTypeId == engineType.Id);
+
+            if (isAv)
+            {
+                var mods = query.Select(m => new ModificationDTO(m)).ToList();
+
+                return mods.Where(i => GetAvailableCount(i.Id) > 0).ToList();
+            }
+
+            return query.Select(m => new ModificationDTO(m)).ToList();
         }
 
         public void Update(ModificationDTO mod)

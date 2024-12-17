@@ -45,6 +45,13 @@
                     </StackPanel>
                 </RadioButton>
 
+                <RadioButton Command="{Binding ShowReportViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileDocument"/>
+                        <TextBlock Text="Отчет"/>
+                    </StackPanel>
+                </RadioButton>
+
             </StackPanel>
         </Border>
 

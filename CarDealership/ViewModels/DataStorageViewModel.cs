@@ -420,6 +420,8 @@ namespace CarDealership.ViewModels
                 vm.CountryProduction = selectedCar.CountryProduction;
                 vm.SelectedModification = vm.Modifications.FirstOrDefault(i => i.Id == selectedCar.ModificationId);
 
+                w.DataContext = vm;
+
                 if (w.ShowDialog() == false) return;
 
                 selectedCar.CountryProduction = vm.CountryProduction;

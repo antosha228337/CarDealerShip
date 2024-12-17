@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="CarDealership.Views.RegistrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarDealership.Views"
+             xmlns:vm="clr-namespace:CarDealership.ViewModels"
+             mc:Ignorable="d" 
+             Height="auto" Width="400">
+
+    <UserControl.DataContext>
+        <vm:RegistrationViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid>
+        <Border Background="White" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Регистрация" 
+                   FontSize="24" 
+                   HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Имя" 
+                   FontSize="16" 
+                   Margin="0 10"/>
+
+                <TextBox Height="30" FontSize="14" Text="{Binding UserName}"/>
+
+                <!--<TextBox Height="30" FontSize="14">
+                    <TextBox.Text>
+                        <Binding Path="UserName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <vm:NotEmptyValidationRule ValidationStep="CommittedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>-->
+
+                <TextBlock Text="Фамилия" FontSize="16" Margin="0 10"/>
+
+                <TextBox Height="30" FontSize="14" Text="{Binding UserLastName}"/>
+
+                <TextBlock Text="Отчество" FontSize="16" Margin="0 10"/>
+
+                <TextBox Height="30" FontSize="14" Text="{Binding UserThirdName}"/>
+
+                <TextBlock Text="Номер телефона" FontSize="16" Margin="0 10"/>
+
+                <TextBox Height="30" FontSize="14" Text="{Binding UserPhoneNumber}"/>
+
+                <TextBlock Text="Логин" FontSize="16" Margin="0 10"/>
+
+                <TextBox Height="30" FontSize="14" Text="{Binding Login}"/>
+
+                <TextBlock Text="Пароль" FontSize="16" Margin="0 10"/>
+
+                <TextBox Text="{Binding Password}" Height="30"/>
+
+                <TextBlock Margin="0 4" Text="{Binding ErrorMessage}" Foreground="Red"/>
+
+                <Button Content="Зарегистрироваться" Style="{StaticResource MaterialDesignFlatMidBgButton}" Command="{Binding LoginCommand}"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

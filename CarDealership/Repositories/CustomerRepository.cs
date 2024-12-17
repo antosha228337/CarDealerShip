@@ -22,6 +22,28 @@ namespace CarDealership.Repositories
             return new(db.Customers.Find(id));
         }
 
+        public bool CheckAvailableLogin(string login)
+        {
+            bool r1 = db.Customers.Any(c => c.Login == login);
+            bool r2 = db.Sellers.Any(s => s.Login == login);
+            return !(r1 || r2);
+        }
+
+        public void Add(CustomerDTO c)
+        {
+            db.Customers.Add(new Customer()
+            {
+                FisrtName = c.FisrtName,
+                LastName = c.LastName,
+                ThirdName = c.ThirdName,
+                PhoneNumber = c.PhoneNumber,
+                Login = c.Login,
+                Password = c.Password,
+            });
+
+            db.SaveChanges();
+        }
+
         public CustomerDTO GetCurrentCustomer()
         {
             var currentUserLogin = Thread.CurrentPrincipal?.Identity?.Name;

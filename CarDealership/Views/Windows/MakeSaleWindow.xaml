@@ -20,6 +20,11 @@
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="16"/>
                 </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="BorderBrush" Value="LightGray"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Style>
             </Grid.Resources>
 
             <Grid.RowDefinitions>
@@ -28,7 +33,8 @@
             </Grid.RowDefinitions>
 
             <StackPanel>
-                <TextBlock Text="Покупатель" FontSize="20"/>
+
+                <TextBlock Text="ПОКУПАТЕЛЬ" FontSize="16" Margin="6" FontWeight="SemiBold"/>
                 <Border Background="WhiteSmoke" Padding="10">
                     <StackPanel>
                         <TextBlock FontSize="16">
@@ -43,7 +49,7 @@
                     </StackPanel>
                 </Border>
 
-                <TextBlock Text="Продавец" FontSize="20" Margin="0 10 0 0"/>
+                <TextBlock Text="ПРОДАВЕЦ" FontSize="16" Margin="6" FontWeight="SemiBold"/>
                 <Border Background="WhiteSmoke" Padding="10">
                     <StackPanel>
                         <TextBlock FontSize="16">
@@ -54,7 +60,7 @@
                     </StackPanel>
                 </Border>
 
-                <TextBlock Text="Автомобиль" FontSize="20" Margin="0 10 0 0"/>
+                <TextBlock Text="АВТОМОБИЛЬ" FontSize="16" Margin="6" FontWeight="SemiBold"/>
                 <Border Background="WhiteSmoke" Padding="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -104,7 +110,7 @@
                 </Border>
 
 
-                <TextBlock Text="Дополнительные услуги" FontSize="20"/>
+                <TextBlock Text="ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ" FontSize="16" Margin="6" FontWeight="SemiBold"/>
                 <Border Background="WhiteSmoke" Padding="10">
                     <ItemsControl ItemsSource="{Binding Services}">
                         <ItemsControl.ItemsPanel>
@@ -129,7 +135,7 @@
                     </ItemsControl>
                 </Border>
 
-                <TextBlock Text="Кредит" FontSize="20"/>
+                <TextBlock Text="КРЕДИТ" FontSize="16" Margin="6" FontWeight="SemiBold"/>
                 <Border Background="WhiteSmoke" Padding="10">
                     <StackPanel>
 
@@ -196,7 +202,7 @@
                     
                 </Border>
 
-                <TextBlock Text="Итого" FontSize="20"/>
+                <TextBlock Text="ИТОГО" FontSize="16" Margin="6" FontWeight="SemiBold"/>
 
                 <Border Background="WhiteSmoke" Padding="10">
                     <StackPanel>
@@ -223,11 +229,12 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <Button Content="Отмена" Style="{StaticResource MaterialDesignPaperLightButton}" Click="Button_Cancel_Click"/>
-                <Button Grid.Column="1" Content="Оформить" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}" Click="Button_Ok_Click"/>
+                <Button Grid.Column="2" Content="Оформить" Style="{StaticResource MaterialDesignPaperSecondaryLightButton}" Click="Button_Ok_Click"/>
             </Grid>
         </Grid>
     </ScrollViewer>

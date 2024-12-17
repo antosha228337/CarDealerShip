@@ -46,7 +46,7 @@ namespace CarDealership.Repositories
 
         public List<ModelDTO> GetAll()
         {
-            return db.Models.Select(i => new ModelDTO(i)).ToList();
+            return db.Models.Include(m => m.CarBrand).Select(i => new ModelDTO(i)).ToList();
         }
 
         public void Update(ModelDTO model)

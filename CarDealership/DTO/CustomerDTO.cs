@@ -22,6 +22,12 @@ namespace CarDealership.DTO
 
         public string Password { get; set; } = null!;
 
+        public CustomerDTO()
+        {
+            
+        }
+
+
         public CustomerDTO(Customer c)
         {
             Id = c.Id;

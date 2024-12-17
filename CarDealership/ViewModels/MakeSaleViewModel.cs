@@ -17,7 +17,6 @@ namespace CarDealership.ViewModels
 {
     public class MakeSaleViewModel : ViewModelBase
     {
-
         private IServiceRepository serviceRepository;
         private ICreditRepository creditRepository;
 
@@ -236,6 +235,7 @@ namespace CarDealership.ViewModels
 
             ChangeCreditCommand = new RelayCommand(OnChangeCreditCommandExecuted);
             AddServiceCommand = new RelayCommand(OnAddServiceCommandExecuted);
+
         }
 
         private void OnChangeCreditCommandExecuted(object p)

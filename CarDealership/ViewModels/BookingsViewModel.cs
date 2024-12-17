@@ -88,6 +88,7 @@ namespace CarDealership.ViewModels
 
                 SaleDTO sale = new();
                 sale.SaleDate = DateOnly.FromDateTime(DateTime.Now);
+
                 sale.TotalPrice = vm.TotalPrice;
                 sale.CarPrice = vm.CarPrice;
                 sale.CustomerId = customer.Id;

@@ -45,5 +45,15 @@ namespace CarDealership.Repositories
         {
             return db.Sales.Select(i => new SaleDTO(i)).ToList();
         }
+
+        public List<SaleDTO> GetByUserId(int id)
+        {
+            return db.Sales.Where(s => s.CustomerId == id).Select(i => new SaleDTO(i)).ToList();
+        }
+
+        public List<SaleDTO> SalesByDate(DateOnly start, DateOnly end)
+        {
+            return db.Sales.Where(s => s.SaleDate >= start && s.SaleDate <= end).Select(i => new SaleDTO(i)).ToList();
+        }
     }
 }

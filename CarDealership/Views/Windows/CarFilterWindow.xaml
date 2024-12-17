@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:CarDealership.ViewModels"
         xmlns:local="clr-namespace:CarDealership.Views.Windows"
         mc:Ignorable="d"
-        Title="Фильтр" Height="400" Width="400" ResizeMode="NoResize">
+        Title="Фильтр" Height="400" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <d:Window.DataContext>
         <vm:CarFilterWindowViewModel/>
@@ -67,6 +67,8 @@
         <TextBlock Text="Двигатель:"  Grid.Row="3" Grid.Column="0"/>
         <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Engines}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEngineType}"/>
 
+
+        <CheckBox IsChecked="{Binding IsAvailableOnly}" Grid.Row="4" Grid.Column="1" Content="Только авто в наличии"/>
 
         <!--<StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2">
             <TextBlock Text="Цена от, руб"/>

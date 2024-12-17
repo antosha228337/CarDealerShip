@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarDealership.Views.Windows
+namespace CarDealership.Views
 {
     /// <summary>
-    /// Логика взаимодействия для CarAboutWindow.xaml
+    /// Логика взаимодействия для ReportView.xaml
     /// </summary>
-    public partial class CarAboutWindow : Window
+    public partial class ReportView : UserControl
     {
-        public CarAboutWindow()
+        public ReportView()
         {
             InitializeComponent();
         }

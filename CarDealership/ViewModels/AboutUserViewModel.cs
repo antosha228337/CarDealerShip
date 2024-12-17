@@ -67,7 +67,7 @@ namespace CarDealership.ViewModels
             Bookings = new(bookingRepo.GetBookingsByCustomerId(Customer.Id));
 
             CancelBooking = new RelayCommand(OnCancelBookingExecuted);
-            Sales = saleRepo.GetAll();
+            Sales = saleRepo.GetByUserId(customer.Id);
         }
 
         public void OnCancelBookingExecuted(object p)

@@ -18,10 +18,12 @@
         </TabControl.Resources>
 
         <TabItem Header="Бренды">
-            <StackPanel>
+            <Grid>
 
-
-
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddCarBrandCommand}"/>
@@ -29,20 +31,25 @@
                     <Button Content="Удалить" Command="{Binding RemoveCarBrandCommand}"/>
                 </StackPanel>
                 
-                <DataGrid SelectedItem="{Binding SelectedCarBrand}" ItemsSource="{Binding Brands}" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedCarBrand}" ItemsSource="{Binding Brands}" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Марка" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="Страна" Binding="{Binding Country}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>
+            </Grid>
             
         </TabItem>
 
         <TabItem Header="Модели">
-            <StackPanel>
+            <Grid>
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
 
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddModelCommand}"/>
@@ -50,7 +57,7 @@
                     <Button Content="Удалить" Command="{Binding RemoveModelCommand}"/>
                 </StackPanel>
                 
-                <DataGrid ItemsSource="{Binding Models}" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedModel}">
+                <DataGrid Grid.Row="1" ItemsSource="{Binding Models}" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedModel}" VerticalScrollBarVisibility="Visible">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Марка" Binding="{Binding CarBrand}"/>
@@ -65,16 +72,20 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Скидка" Binding="{Binding DiscountId}"/>
                     </DataGrid.Columns>
                     
                     
                 </DataGrid>
-            </StackPanel>
+            </Grid>
         </TabItem>
 
         <TabItem Header="Модификации">
-            <StackPanel>
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddModificationCommand}"/>
@@ -82,7 +93,7 @@
                     <Button Content="Удалить" Command="{Binding RemoveModificationCommand}"/>
                 </StackPanel>
 
-                <DataGrid SelectedItem="{Binding SelectedModification}" ItemsSource="{Binding Modifications}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedModification}" ItemsSource="{Binding Modifications}" AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Марка" Binding="{Binding CarBrand}"/>
@@ -98,43 +109,37 @@
                         
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>
+            </Grid>
         </TabItem>
 
         <TabItem Header="Автомобили">
 
-            <StackPanel>
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddCarCommand}"/>
                     <Button Content="Изменить" Command="{Binding EditCarCommand}"/>
                     <Button Content="Удалить" Command="{Binding RemoveCarCommand}"/>
                 </StackPanel>
 
-                <Grid>
+                <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding Cars}" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="VIN" Binding="{Binding Vin}"/>
+                        <DataGridTextColumn Header="Марка" Binding="{Binding Brand}"/>
+                        <DataGridTextColumn Header="Модель" Binding="{Binding ModelName}"/>
+                        <DataGridTextColumn Header="Модификация" Binding="{Binding ModificationName}"/>
+                        <DataGridTextColumn Header="Год" Binding="{Binding ReleaseYear}"/>
+                        <DataGridTextColumn Header="Страна" Binding="{Binding CountryProduction}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-
-
-                        <DataGrid VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding Cars}" AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="VIN" Binding="{Binding Vin}"/>
-                                <DataGridTextColumn Header="Марка" Binding="{Binding Brand}"/>
-                                <DataGridTextColumn Header="Модель" Binding="{Binding ModelName}"/>
-                                <DataGridTextColumn Header="Модификация" Binding="{Binding ModificationName}"/>
-                                <DataGridTextColumn Header="Год" Binding="{Binding ReleaseYear}"/>
-                                <DataGridTextColumn Header="Страна" Binding="{Binding CountryProduction}"/>
-
-
-                            </DataGrid.Columns>
-                        </DataGrid>
-
-
-                </Grid>
-            </StackPanel>
-            
-            
-            
-            
+            </Grid>
         </TabItem>
 
     </TabControl>

@@ -6,52 +6,36 @@
         xmlns:local="clr-namespace:CarDealership.Views.Windows"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:CarDealership.ViewModels"
-        Title="Аторизация" Height="350" Width="400" WindowStartupLocation="CenterScreen"
+        Title="Аторизация" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         ResizeMode="NoResize">
 
     <Window.DataContext>
         <vm:LoginWindowViewModel/>
     </Window.DataContext>
-    
+
     <Grid>
-        <Border Background="White" Padding="20">
-            <StackPanel>
-                <TextBlock Text="Автосалон" 
-                           FontSize="24" 
-                           HorizontalAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Логин" 
-                           FontSize="16" 
-                           Margin="0 10"/>
-                
-                <TextBox Height="30" FontSize="14" Text="{Binding Login}"/>
+        <!--<StackPanel VerticalAlignment="Center">
+            <Image Source="D:\ИГЭУ\конструирование ПО\CarDealerShip\CarDealership\Images\card3.jpg" Width="200" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <TextBlock Text="АВТОСАЛОН" FontSize="20" HorizontalAlignment="Center"/>
+        </StackPanel>-->
 
-                <TextBlock Text="Пароль" FontSize="16" Margin="0 10"/>
-                
-                <TextBox Text="{Binding Password}" Height="30"/>
 
-                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"/>
+        <StackPanel Grid.Column="1">
 
-                <Grid Margin="0 40 0 0">
-                    <Button Content="Выйти" 
-                            Height="40" 
-                            Width="150" 
-                            HorizontalAlignment="Left"
-                            Command="{Binding ExitCommand}"
-                        />
+            <ContentPresenter Content="{Binding CurrentView}"/>
+            <Button Margin="20 0 20 20" Content="{Binding SwitchButtonText}" Style="{StaticResource MaterialDesignFlatDarkButton}" Command="{Binding ChangeViewCommand}"/>
 
-                    <Button Content="Продолжить" 
-                            Height="40" 
-                            Width="150"
-                            Style="{StaticResource MaterialDesignFlatDarkBgButton}"
-                            HorizontalAlignment="Right"
-                            Command="{Binding LoginCommand}"
-                            />
-                </Grid>
-                
-                
-            </StackPanel>
-        </Border>
+        </StackPanel>
     </Grid>
+
+    
+
+    
 
 </Window>

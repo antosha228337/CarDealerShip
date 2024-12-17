@@ -12,12 +12,16 @@
         <vm:BookingsViewModel/>
     </UserControl.DataContext>
     
-    <StackPanel Background="White">
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
         <TextBlock Text="Все брони" FontSize="20"/>
 
-        <Separator/>
-
-        <DataGrid ItemsSource="{Binding Bookings}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Bookings}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding CustomerFirstName}"/>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding CustomerLastName}"/>
@@ -48,5 +52,5 @@
 
             </DataGrid.Columns>
         </DataGrid>
-    </StackPanel>
+    </Grid>
 </UserControl>

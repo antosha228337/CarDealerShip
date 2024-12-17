@@ -33,6 +33,18 @@ namespace CarDealership.ViewModels
             }
         }
 
+        private string filterInfo;
+
+        public string FilterInfo
+        {
+            get => filterInfo;
+            set
+            {
+                filterInfo = value;
+                OnPropertyChanged(nameof(FilterInfo));
+            }
+        }
+
         public ICommand BookingCommand { get; set; }
         public ICommand ApplyCarFilterCommand { get; set; }
 
@@ -64,17 +76,23 @@ namespace CarDealership.ViewModels
             if (p is ModificationDTO mod)
             {
                 int customer_id = userRepository.GetCurrentCustomer().Id;
+                int car_id = carRepository.GetAvailableByModification(mod.Id).Id;
 
                 if (bookingRepository.GetCountBookingsByCustomerId(customer_id) == 2)
                 {
                     MessageBox.Show("Вы можете забронаровать только 2 автомобиля");
                     return;
                 }
+
+                if (!bookingRepository.IsBookingAvailable(customer_id, car_id)) {
+                    MessageBox.Show("Вы уже забронировали данную модификацию");
+                    return;
+                }
                 
                 BookingDTO booking = new();
 
                 booking.CustomerId = customer_id;
-                booking.CarId = carRepository.GetAvailableByModification(mod.Id).Id;
+                booking.CarId = car_id;
                 booking.Date = DateOnly.FromDateTime(DateTime.Now);
 
                 bookingRepository.AddBooking(booking);  
@@ -87,8 +105,9 @@ namespace CarDealership.ViewModels
             CarFilterWindow window = new(vm);
             if (window.ShowDialog() == false) return;
 
-            var mods = modificationRepository.GetByFilter(vm.SelectedCarBrand, vm.SelectedEngineType, vm.SelectedTransmissionType, vm.SelectedBodyType);
+            var mods = modificationRepository.GetByFilter(vm.SelectedCarBrand, vm.SelectedEngineType, vm.SelectedTransmissionType, vm.SelectedBodyType, vm.IsAvailableOnly);
             AllModifications = mods;
+            FilterInfo = vm.GetFilterInfo();
         }
     }
 }

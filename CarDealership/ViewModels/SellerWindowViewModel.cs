@@ -22,6 +22,7 @@ namespace CarDealership.ViewModels
         public ICommand ShowDataStorageCommand { get; set; }
         public ICommand ShowBookingViewCommand { get; set; }
         public ICommand ShowSalesCommand { get; set; }
+        public ICommand ShowReportViewCommand { get; set; }
 
         public SellerWindowViewModel()
         {
@@ -30,6 +31,7 @@ namespace CarDealership.ViewModels
             ShowDataStorageCommand = new RelayCommand(OnShowDataStorageCommandExecuted);
             ShowBookingViewCommand = new RelayCommand(OnShowBookingViewCommandExecuted);
             ShowSalesCommand = new RelayCommand(OnShowSalesCommandExecuted);
+            ShowReportViewCommand = new RelayCommand(OnShowReportViewCommandExecuted);
         }
 
         private void OnShowDataStorageCommandExecuted(object p)
@@ -45,6 +47,11 @@ namespace CarDealership.ViewModels
         private void OnShowSalesCommandExecuted(object p)
         {
             CurrentView = new SalesView();
+        }
+
+        private void OnShowReportViewCommandExecuted(object p)
+        {
+            CurrentView = new ReportView();
         }
     }
 }

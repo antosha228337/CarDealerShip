@@ -3,6 +3,7 @@ using CarDealership.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,18 @@ namespace CarDealership.Repositories
         public List<BookingDTO> GetBookingsByCustomerId(int customer_id)
         {
             return db.Bookings.Where(b => b.CustomerId == customer_id).Select(i => new BookingDTO(i)).ToList();
+        }
+
+        public bool IsBookingAvailable(int customerId, int carId)
+        {
+            var car = db.Cars.Find(carId);
+
+            if (car != null)
+            {
+                return !db.Bookings.Where(b => b.CustomerId == customerId && b.Car.ModificationId == car.ModificationId).Any();
+            }
+            return false;
+            
         }
 
         public List<BookingDTO> GetAll()

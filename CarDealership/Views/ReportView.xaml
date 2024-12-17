@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="CarDealership.Views.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarDealership.Views"
+             xmlns:vm="clr-namespace:CarDealership.ViewModels"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <vm:ReportViewModel/>
+    </UserControl.DataContext>
+    
+    
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" >
+            <TextBlock Text="Отчет по продажам моделей автомобилей за период" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="От" VerticalAlignment="Center"/>
+                <DatePicker Width="100" Margin="10 0 10 0" SelectedDate="{Binding DateStart}"/>
+                <TextBlock Text="До" VerticalAlignment="Center"/>
+                <DatePicker Width="100" Margin="10 0 10 0" SelectedDate="{Binding DateEnd}"/>
+                <Button Content="Показать" Command="{Binding ShowReportCommand}"/>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        <lvc:PieChart Margin="20" Grid.Row="1" Series="{Binding SeriesReport}" LegendLocation="Right"/>
+    </Grid>
+</UserControl>

@@ -10,6 +10,8 @@ namespace CarDealership.Interfaces.Repositories
     interface ISaleRepository
     {
         List<SaleDTO> GetAll();
+        public List<SaleDTO> GetByUserId(int id);
         void Add(SaleDTO sale);
+        public List<SaleDTO> SalesByDate(DateOnly start, DateOnly end);
     }
 }

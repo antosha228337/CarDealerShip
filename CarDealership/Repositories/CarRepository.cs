@@ -31,7 +31,7 @@ namespace CarDealership.Repositories
 
         public List<CarDTO> GetAll()
         {
-            return db.Cars.Select(i => new CarDTO(i)).ToList();
+            return db.Cars.Include(c => c.Modification).ThenInclude(m => m.Model).ThenInclude(m => m.CarBrand).Select(i => new CarDTO(i)).ToList();
         }
 
         public bool Delete(int id)

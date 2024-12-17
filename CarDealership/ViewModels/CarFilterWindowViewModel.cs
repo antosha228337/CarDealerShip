@@ -108,6 +108,18 @@ namespace CarDealership.ViewModels
             }
         }
 
+        private bool isAvailableOnly;
+
+        public bool IsAvailableOnly
+        {
+            get => isAvailableOnly;
+            set
+            {
+                isAvailableOnly = value;
+                OnPropertyChanged(nameof(IsAvailableOnly));
+            }
+        }
+
 
 
         public CarFilterWindowViewModel()
@@ -121,6 +133,18 @@ namespace CarDealership.ViewModels
             Transmissions = transmissionTypeRepository.GetAll();
             Engines = engineTypeRepository.GetAll();
             BodyTypes = bodyTypeRepository.GetAll();
+        }
+
+        public string GetFilterInfo()
+        {
+            string info = "";
+            if (selectedCarBrand != null) info += " Марка: " + selectedCarBrand.Name;
+            if (selectedEngineType != null) info += " Двигатель: " + selectedEngineType.Name;
+            if (selectedBodyType != null) info += " Кузов: " + selectedBodyType.Name;
+            if (selectedTransmissionType != null) info += " Трансмиссия: "  + selectedTransmissionType.Name;
+            if (isAvailableOnly == true) info += " Только в наличие ";
+            if (info == "") info = "Фильтры отсутствуют";
+            return info;
         }
 
 

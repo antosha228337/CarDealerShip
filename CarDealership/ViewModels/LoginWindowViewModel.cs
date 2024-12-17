@@ -1,107 +1,62 @@
-﻿using CarDealership.Commands;
-using CarDealership.Interfaces.Repositories;
-using CarDealership.Repositories;
-using CarDealership.Views.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Security.Principal;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using CarDealership.Views;
+using System.Windows.Controls;
 using System.Windows.Input;
+using CarDealership.Commands;
 
 namespace CarDealership.ViewModels
 {
-    class LoginWindowViewModel : ViewModelBase
+    internal class LoginWindowViewModel : ViewModelBase
     {
-       
-        private string _password;
-        private string _login;
-        private string _errorMessage;
+        private UserControl currentView;
 
-        ICustomerRepository userRepo;
-        ISellerRepository sellerRepo;
-
-        public string Login
+        public UserControl CurrentView
         {
-            get => _login;
+            get => currentView;
             set
             {
-                _login = value;
-                ErrorMessage = "";
-                OnPropertyChanged(nameof(Login));
+                currentView = value;
+                OnPropertyChanged(nameof(CurrentView));
             }
         }
 
-        public string Password
+        private string switchButtonText;
+
+        public string SwitchButtonText
         {
-            get => _password;
+            get => switchButtonText;
             set
             {
-                _password = value;
-                ErrorMessage = "";
-                OnPropertyChanged(nameof(Password));
+                switchButtonText = value;
+                OnPropertyChanged(nameof(SwitchButtonText));
             }
         }
 
-        public string ErrorMessage
-        {
-            get => _errorMessage;
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged(nameof(ErrorMessage));
-            }
-        }
-
-        public ICommand ExitCommand { get; set; }
-        public ICommand LoginCommand { get; set; }
+        public ICommand ChangeViewCommand { get; set; }
 
         public LoginWindowViewModel()
         {
-            _errorMessage = "";
-            userRepo = new CustomerRepository();
-            sellerRepo = new SellerRepository();
+            CurrentView = new LoginView();
+            SwitchButtonText = "Зарегистрироваться";
 
-            ExitCommand = new RelayCommand(OnExitCommandExecuted, CanExitCommandExecute);
-            LoginCommand = new RelayCommand(OnLoginCommandExecuted, CanLoginCommandExecute);
+            ChangeViewCommand = new RelayCommand(OnChangeViewCommandExecuted);
         }
 
-        private void OnExitCommandExecuted(object p) => Application.Current.MainWindow.Close();
-
-        private bool CanExitCommandExecute(object p) => true;
-
-        private void OnLoginCommandExecuted(object p)
+        private void OnChangeViewCommandExecuted(object p)
         {
-            if (userRepo.CheckUserExistence(new System.Net.NetworkCredential(Login, Password)))
+            if (currentView is LoginView)
             {
-
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Login), ["Customer"]);
-                
-                MainWindow w = new();
-                w.Show();
-
-                var login_window = Application.Current.Windows.OfType<LoginWindow>().First();
-                login_window?.Close();
+                CurrentView = new RegistrationView();
+                SwitchButtonText = "Войти";
             }
-            else if (sellerRepo.CheckUserExistence(new System.Net.NetworkCredential(Login, Password)))
+            else if (currentView is RegistrationView)
             {
-                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Login), ["Seller"]);
-
-                SellerMainWindow w = new();
-                w.Show();
-
-                var login_window = Application.Current.Windows.OfType<LoginWindow>().First();
-                login_window?.Close();
-            }
-            else
-            {
-                ErrorMessage = "Не верный логин или пароль!";
+                CurrentView = new LoginView();
+                SwitchButtonText = "Зарегистрироваться";
             }
         }
-
-        private bool CanLoginCommandExecute(object p) => true;
     }
 }
