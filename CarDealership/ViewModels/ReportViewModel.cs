@@ -59,22 +59,6 @@ namespace CarDealership.ViewModels
         public ReportViewModel()
         {
             saleRepo = new SaleRepository();
-            
-            SeriesCollection s =
-            [
-                new PieSeries
-                {
-                    Title = "hello",
-                    Values = new ChartValues<double> { 12 }
-                },
-                new PieSeries
-                {
-                    Title = "hello2",
-                    Values = new ChartValues<double> { 2 }
-                }
-            ];
-
-            SeriesReport = s;
 
             DateStart = DateTime.Now;
             DateEnd  = DateTime.Now;

@@ -13,6 +13,7 @@ namespace CarDealership.ViewModels
     {
 
         ISaleRepository saleRepository;
+        IPaymentRepository paymentRepo;
 
         #region Свойства
         private List<SaleDTO> sales;
@@ -26,11 +27,37 @@ namespace CarDealership.ViewModels
                 OnPropertyChanged(nameof(Sales));
             }
         }
+
+        private SaleDTO? selectedSale;
+
+        public SaleDTO? SelectedSale
+        {
+            get => selectedSale;
+            set
+            {
+                selectedSale = value;
+                Payments = paymentRepo.GetBySaleId(selectedSale.Id);
+                OnPropertyChanged(nameof(SelectedSale));
+            }
+        }
+
+        private List<PaymentDTO> payments;
+
+        public List<PaymentDTO> Payments
+        {
+            get => payments;
+            set
+            {
+                payments = value;
+                OnPropertyChanged(nameof(Payments));
+            }
+        }
         #endregion
 
         public SalesViewModel()
         {
             saleRepository = new SaleRepository();
+            paymentRepo = new PaymentRepository();
             Sales = saleRepository.GetAll();
         }
 

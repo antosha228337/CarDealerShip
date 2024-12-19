@@ -11,10 +11,44 @@
     <UserControl.DataContext>
         <vm:SalesViewModel/>
     </UserControl.DataContext>
-    
-    
-    <DataGrid ItemsSource="{Binding Sales}">
 
-    </DataGrid>
-    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid ItemsSource="{Binding Sales}" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSale}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="VIN" Binding="{Binding CarVin}"/>
+                <DataGridTextColumn Header="Марка" Binding="{Binding CarBrand}"/>
+                <DataGridTextColumn Header="Модель" Binding="{Binding CarModel}"/>
+                <DataGridTextColumn Header="Модификация" Binding="{Binding CarModification}"/>
+                <DataGridTextColumn Header="Покупатель" Binding="{Binding CustomerId}"/>
+                <!--<DataGridTextColumn Header="Продавец" Binding="{Binding SellerId}"/>-->
+                <DataGridTextColumn Header="Цена авто" Binding="{Binding CarPrice}"/>
+                <DataGridTextColumn Header="Цена с уч. кредита" Binding="{Binding TotalPrice}"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding SaleDate}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="1" Background="WhiteSmoke">
+            <TextBlock Text="Платежи" HorizontalAlignment="Center" />
+
+            <ListView ItemsSource="{Binding Payments}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date}"/>
+
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+        
+
+    </Grid>
+
 </UserControl>

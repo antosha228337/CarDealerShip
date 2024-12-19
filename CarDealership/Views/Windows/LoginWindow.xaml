@@ -20,10 +20,10 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!--<StackPanel VerticalAlignment="Center">
+        <StackPanel VerticalAlignment="Center">
             <Image Source="D:\ИГЭУ\конструирование ПО\CarDealerShip\CarDealership\Images\card3.jpg" Width="200" RenderOptions.BitmapScalingMode="HighQuality"/>
             <TextBlock Text="АВТОСАЛОН" FontSize="20" HorizontalAlignment="Center"/>
-        </StackPanel>-->
+        </StackPanel>
 
 
         <StackPanel Grid.Column="1">
