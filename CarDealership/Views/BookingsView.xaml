@@ -6,22 +6,29 @@
              xmlns:local="clr-namespace:CarDealership.Views"
              xmlns:vm="clr-namespace:CarDealership.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="1000">
 
     <UserControl.DataContext>
         <vm:BookingsViewModel/>
     </UserControl.DataContext>
     
-    <Grid Background="White">
+    <Grid Background="White" Margin="10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Все брони" FontSize="20"/>
+        <StackPanel>
+            <TextBlock Text="Все брони" FontSize="20"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Отменить" Background="IndianRed" Command="{Binding CancelBooking}"/>
+                <Button Content="Подтвердить" Margin="10" Background="Goldenrod" Command="{Binding ConfirmBookingCommand}"/>
+                <Button Content="Оформить" Background="Green" Command="{Binding MakeBooking}"/>
+            </StackPanel>
+        </StackPanel>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Bookings}" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedBooking}" ItemsSource="{Binding Bookings}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding CustomerFirstName}"/>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding CustomerLastName}"/>
@@ -34,21 +41,23 @@
                 <DataGridTextColumn Header="Дата" Binding="{Binding Date}"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding CarPrice}"/>
 
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button CommandParameter="{Binding}" Command="{Binding DataContext.CancelBooking, RelativeSource={RelativeSource AncestorType=UserControl}}" Content="Отменить" Style="{StaticResource MaterialDesignFlatButton}"/> 
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                            <!--<Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Background" Value="Transparent"/>-->
+                            <Style.Triggers>
 
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button CommandParameter="{Binding}" Command="{Binding DataContext.MakeBooking, RelativeSource={RelativeSource AncestorType=UserControl}}" Content="Оформить" Style="{StaticResource MaterialDesignFlatDarkButton}"/> 
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                                <DataTrigger Binding="{Binding StatusId}" Value="2">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding StatusId}" Value="1">
+                                    <Setter Property="Foreground" Value="Green"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

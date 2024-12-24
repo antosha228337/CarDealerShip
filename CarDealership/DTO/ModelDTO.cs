@@ -16,15 +16,9 @@ namespace CarDealership.DTO
 
         public string Name { get; set; } = null!;
 
-        public int StockCuantity { get; set; }
-
-        public DateOnly? DateReceipt { get; set; }
-
         public int CarBrandId { get; set; }
 
         public string CarBrand {  get; set; }
-
-        public int? DiscountId { get; set; }
 
         public BitmapImage? Image { get; set; }
 
@@ -34,11 +28,8 @@ namespace CarDealership.DTO
         {
             Id = m.Id;
             Name = m.Name;
-            StockCuantity = m.StockCuantity;
-            DateReceipt = m.DateReceipt;
             CarBrandId = m.CarBrandId;
             Image = ImageConverter.ConvertByteArrayToImage(m.Image);
-            DiscountId = m.DiscountId;
             CarBrand = m.CarBrand.Name;
         }
     }

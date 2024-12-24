@@ -250,7 +250,6 @@ namespace CarDealership.ViewModels
                 model.Name = vm.ModelName;
                 model.Image = vm.CurrentImage;
                 model.CarBrandId = vm.SelectedCarBrand.Id;
-                model.DiscountId = selectedModel.DiscountId;
 
                 modelRepository.Update(model);
                 Models = modelRepository.GetAll();

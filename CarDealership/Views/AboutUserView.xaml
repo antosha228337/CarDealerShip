@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
              mc:Ignorable="d" 
-             d:DesignHeight="420" d:DesignWidth="900" Background="WhiteSmoke" MinHeight="420">
+             d:DesignHeight="420" d:DesignWidth="900" Background="WhiteSmoke">
     
     <UserControl.DataContext>
         <vm:AboutUserViewModel/>
@@ -61,58 +61,70 @@
 
         <Grid Grid.Column="1" Margin="10 0 0 0">
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+            <Border Background="White" BorderThickness="1" BorderBrush="LightGray">
+                <TabControl>
+                    <TabItem Header="Брони">
+                        <Grid>
+
+                            <DataGrid ItemsSource="{Binding Bookings}" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Visible">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Марка" Binding="{Binding CarBrand}"/>
+                                    <DataGridTextColumn Header="Модель" Binding="{Binding CarModel}"/>
+                                    <DataGridTextColumn Header="Комплектация" Binding="{Binding CarModification}"/>
+                                    <DataGridTextColumn Header="VIN" Binding="{Binding CarVin}"/>
+                                    <DataGridTextColumn Header="Дата" Binding="{Binding Date}"/>
+                                    <DataGridTextColumn Header="Цена" Binding="{Binding CarPrice}"/>
+                                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}">
+                                        <DataGridTextColumn.CellStyle>
+                                            <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                                <!--<Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Background" Value="Transparent"/>-->
+                                                <Style.Triggers>
+
+                                                    <DataTrigger Binding="{Binding StatusId}" Value="2">
+                                                        <Setter Property="Foreground" Value="Red"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusId}" Value="1">
+                                                        <Setter Property="Foreground" Value="Green"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGridTextColumn.CellStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button CommandParameter="{Binding}" Command="{Binding DataContext.CancelBooking, RelativeSource={RelativeSource AncestorType=UserControl}}">Отменить</Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Покупки">
+                        <ListView ItemsSource="{Binding Sales}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Марка" DisplayMemberBinding="{Binding CarBrand}"/>
+                                    <GridViewColumn Header="Модель" DisplayMemberBinding="{Binding CarModel}"/>
+                                    <GridViewColumn Header="Комплектация" DisplayMemberBinding="{Binding CarModification}"/>
+                                    <GridViewColumn Header="VIN" DisplayMemberBinding="{Binding CarVin}"/>
+                                    <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding SaleDate}"/>
+                                    <GridViewColumn Header="Цена авто" DisplayMemberBinding="{Binding CarPrice}"/>
+                                    <GridViewColumn Header="Общая стоимость" DisplayMemberBinding="{Binding TotalPrice}"/>
+                                    <GridViewColumn Header="Оплачено" DisplayMemberBinding="{Binding PaidSum}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </TabItem>
+
+                </TabControl>
+            </Border>
             
-            <Border Background="white" BorderThickness="1" BorderBrush="LightGray">
-                <StackPanel Margin="10">
-                    <TextBlock Text="Мои брони" FontSize="20"/>
+            
 
-                    <Separator/>
-
-                    <DataGrid ItemsSource="{Binding Bookings}" AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Visible">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Марка" Binding="{Binding CarBrand}"/>
-                            <DataGridTextColumn Header="Модель" Binding="{Binding CarModel}"/>
-                            <DataGridTextColumn Header="Комплектация" Binding="{Binding CarModification}"/>
-                            <DataGridTextColumn Header="VIN" Binding="{Binding CarVin}"/>
-                            <DataGridTextColumn Header="Дата" Binding="{Binding Date}"/>
-                            <DataGridTextColumn Header="Цена" Binding="{Binding CarPrice}"/>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button CommandParameter="{Binding}" Command="{Binding DataContext.CancelBooking, RelativeSource={RelativeSource AncestorType=UserControl}}">Отменить</Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-            </Border>
-
-            <Border Grid.Row="1" Background="white" Margin="0 10 0 0" BorderThickness="1" BorderBrush="LightGray">
-                <StackPanel Margin="10">
-                    <TextBlock Text="Мои покупки" FontSize="20"/>
-
-                    <Separator/>
-
-                    <DataGrid ItemsSource="{Binding Sales}" AutoGenerateColumns="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Марка" Binding="{Binding CarBrand}"/>
-                            <DataGridTextColumn Header="Модель" Binding="{Binding CarModel}"/>
-                            <DataGridTextColumn Header="Комплектация" Binding="{Binding CarModification}"/>
-                            <DataGridTextColumn Header="VIN" Binding="{Binding CarVin}"/>
-                            <DataGridTextColumn Header="Дата" Binding="{Binding SaleDate}"/>
-                            <DataGridTextColumn Header="Цена авто" Binding="{Binding CarPrice}"/>
-                            <DataGridTextColumn Header="Общая стоимость" Binding="{Binding TotalPrice}"/>
-                            <DataGridTextColumn Header="Оплачено" Binding="{Binding PaidSum}"/>
-                            
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-            </Border>
 
         </Grid>
 

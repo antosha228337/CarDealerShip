@@ -13,7 +13,11 @@ public partial class Booking
 
     public int CustomerId { get; set; }
 
+    public int StatusTypeId { get; set; }
+
     public virtual Car Car { get; set; } = null!;
 
     public virtual Customer Customer { get; set; } = null!;
+
+    public virtual StatusType StatusType { get; set; } = null!;
 }

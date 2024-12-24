@@ -61,7 +61,6 @@ namespace CarDealership.DTO
             BodyTypeId = modification.BodyTypeId;
             DriveTypeId = modification.DriveTypeId;
 
-
             Model = modification.Model.Name;
             CarBrand = modification.Model.CarBrand.Name;
             Transmission = modification.TransmissionType.Name;

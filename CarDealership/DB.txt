@@ -1,0 +1,151 @@
+﻿CREATE TABLE public.body_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+ALTER TABLE public.body_type OWNER TO postgres;
+
+CREATE TABLE public.booking (
+    id integer NOT NULL,
+    date date NOT NULL,
+    car_id integer NOT NULL,
+    customer_id integer NOT NULL,
+    status_type_id integer NOT NULL
+);
+
+ALTER TABLE public.booking OWNER TO postgres;
+
+CREATE TABLE public.car (
+    id integer NOT NULL,
+    "VIN" character varying(100) NOT NULL,
+    release_year integer NOT NULL,
+    country_production character varying(100) NOT NULL,
+    modification_id integer NOT NULL
+);
+
+ALTER TABLE public.car OWNER TO postgres;
+
+CREATE TABLE public.credit (
+    id integer NOT NULL,
+    interest_rate real NOT NULL,
+    period integer NOT NULL
+);
+
+ALTER TABLE public.credit OWNER TO postgres;
+
+CREATE TABLE public.customer (
+    id integer NOT NULL,
+    fisrt_name character varying(100) NOT NULL,
+    last_name character varying(100) NOT NULL,
+    third_name character varying(100),
+    phone_number character varying(20) NOT NULL,
+    login character varying(50) NOT NULL,
+    password character varying(50) NOT NULL
+);
+
+ALTER TABLE public.customer OWNER TO postgres;
+
+CREATE TABLE public.drive_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+ALTER TABLE public.drive_type OWNER TO postgres;
+
+CREATE TABLE public.engine_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+ALTER TABLE public.engine_type OWNER TO postgres;
+
+CREATE TABLE public.model (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    car_brand_id integer NOT NULL,
+    image bytea
+);
+
+ALTER TABLE public.model OWNER TO postgres;
+
+CREATE TABLE public.modification (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    horsepower integer NOT NULL,
+    engine_capacity real NOT NULL,
+    price integer NOT NULL,
+    model_id integer NOT NULL,
+    transmission_type_id integer NOT NULL,
+    engine_type_id integer NOT NULL,
+    drive_type_id integer NOT NULL,
+    body_type_id integer NOT NULL
+);
+
+ALTER TABLE public.modification OWNER TO postgres;
+
+CREATE TABLE public.payment (
+    id integer NOT NULL,
+    amount integer NOT NULL,
+    date date NOT NULL,
+    sale_id integer NOT NULL
+);
+
+ALTER TABLE public.payment OWNER TO postgres;
+
+CREATE TABLE public.sale (
+    id integer NOT NULL,
+    sale_date date NOT NULL,
+    total_price integer NOT NULL,
+    car_price integer NOT NULL,
+    customer_id integer NOT NULL,
+    seller_id integer NOT NULL,
+    car_id integer NOT NULL,
+    credit_id integer
+);
+
+ALTER TABLE public.sale OWNER TO postgres;
+
+CREATE TABLE public.seller (
+    id integer NOT NULL,
+    first_name character varying(100) NOT NULL,
+    last_name character varying(100) NOT NULL,
+    third_name character varying(100),
+    phone_number character varying(20) NOT NULL,
+    login character varying(50) NOT NULL,
+    password character varying(50) NOT NULL,
+    work_experience integer NOT NULL
+);
+
+ALTER TABLE public.seller OWNER TO postgres;
+
+CREATE TABLE public.service (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    price integer NOT NULL,
+    image bytea
+);
+
+ALTER TABLE public.service OWNER TO postgres;
+
+CREATE TABLE public.service_sale (
+    id integer NOT NULL,
+    service_price integer NOT NULL,
+    sale_id integer NOT NULL,
+    service_id integer NOT NULL
+);
+
+ALTER TABLE public.service_sale OWNER TO postgres;
+
+CREATE TABLE public.status_type (
+    id integer NOT NULL,
+    name character varying(20) NOT NULL
+);
+
+ALTER TABLE public.status_type OWNER TO postgres;
+
+CREATE TABLE public.transmission_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+ALTER TABLE public.transmission_type OWNER TO postgres;

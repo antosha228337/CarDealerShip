@@ -42,7 +42,7 @@ namespace CarDealership.Repositories
 
         public int GetAvailableCount(int mod_id)
         {
-            int countBookedcars =  db.Bookings.Where(b => b.Car.ModificationId == mod_id).Count();
+            int countBookedcars =  db.Bookings.Where(b => b.Car.ModificationId == mod_id && (b.StatusTypeId == 1 || b.StatusTypeId == 3)).Count();
             int stockQuantity = GetStockQuantity(mod_id);
             return stockQuantity - countBookedcars;
         }

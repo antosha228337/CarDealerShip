@@ -17,8 +17,8 @@ namespace CarDealership.ViewModels
         ISaleRepository saleRepository;
 
         public ICommand CancelBooking {  get; set; }
-
         public ICommand MakeBooking { get; set; }
+        public ICommand ConfirmBookingCommand { get; set; }
 
         private List<BookingDTO> bookings;
 
@@ -32,6 +32,18 @@ namespace CarDealership.ViewModels
             }
         }
 
+        private BookingDTO? selectedBooking;
+
+        public BookingDTO? SelectedBooking
+        {
+            get => selectedBooking;
+            set
+            {
+                selectedBooking = value;
+                OnPropertyChanged(nameof(SelectedBooking));
+            }
+        }
+
         public BookingsViewModel()
         {
             bookingRepo = new BookingRepository();
@@ -42,33 +54,44 @@ namespace CarDealership.ViewModels
 
             Bookings = bookingRepo.GetAll();
 
-            CancelBooking = new RelayCommand(OnCancelBookingExecuted);
-            MakeBooking = new RelayCommand(OnMakeBookingExecuted);
+            CancelBooking = new RelayCommand(OnCancelBookingExecuted, CanCancelBookingExecute);
+            MakeBooking = new RelayCommand(OnMakeBookingExecuted, CanMakeBookingExecute);
+            ConfirmBookingCommand = new RelayCommand(OnConfirmBookingCommandExecuted, CanConfirmBookingCommandExecute);
+        }
+
+        private bool CanCancelBookingExecute(object p)
+        {
+            return selectedBooking != null && selectedBooking.StatusId == 1;
         }
 
         private void OnCancelBookingExecuted(object p)
         {
-            if (p is BookingDTO booking)
+            if (selectedBooking != null)
             {
                 var res = MessageBox.Show("Отменить бронирование?", "Подтвердить действие", MessageBoxButton.YesNo);
                 if (res == MessageBoxResult.Yes)
                 {
-                    bookingRepo.Delete(booking.Id);
-                    Bookings.Remove(booking);
+                   selectedBooking.StatusId = 2;
+                    bookingRepo.Update(selectedBooking);
                 }
             }
         }
 
+        private bool CanMakeBookingExecute(object p)
+        {
+            return selectedBooking != null && selectedBooking.StatusId == 3;
+        }
+
         private void OnMakeBookingExecuted(object p)
         {
-            if (p is BookingDTO booking)
+            if (selectedBooking != null)
             {
                 MakeSaleWindow w = new();
 
                 MakeSaleViewModel vm = new();
 
-                var customer = userRepo.GetByID(booking.CustomerId);
-                var car = carRepository.GetById(booking.CarId);
+                var customer = userRepo.GetByID(selectedBooking.CustomerId);
+                var car = carRepository.GetById(selectedBooking.CarId);
                 var seller = sellerRepository.GetCurrentSeller();
 
                 vm.CustomerFIO = customer.LastName + " " + customer.FisrtName + " " + customer.ThirdName;
@@ -97,12 +120,32 @@ namespace CarDealership.ViewModels
                 sale.CreditId = vm.SelectedCredit?.Id;
                 sale.Services = vm.SelectedServices;
 
-                bookingRepo.Delete(booking.Id);
+                selectedBooking.StatusId = 4;
+
+                bookingRepo.Update(selectedBooking);
 
                 saleRepository.Add(sale);
 
                 Bookings = bookingRepo.GetAll();
 
+            }
+        }
+
+        private bool CanConfirmBookingCommandExecute(object p)
+        {
+            return selectedBooking != null && selectedBooking.StatusId == 1;
+        }
+
+        private void OnConfirmBookingCommandExecuted(object p)
+        {
+            if (selectedBooking != null)
+            {
+                var res = MessageBox.Show("Подтвердить бронирование бронирование?", "Подтвердить действие", MessageBoxButton.YesNo);
+                if (res == MessageBoxResult.Yes)
+                {
+                    selectedBooking.StatusId = 3;
+                    bookingRepo.Update(selectedBooking);
+                }
             }
         }
     }

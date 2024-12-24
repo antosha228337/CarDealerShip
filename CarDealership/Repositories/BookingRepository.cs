@@ -1,12 +1,6 @@
 ﻿using CarDealership.DTO;
 using CarDealership.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarDealership.Repositories
 {
@@ -17,12 +11,12 @@ namespace CarDealership.Repositories
 
         public BookingRepository()
         {
-            db.Bookings.Include(b => b.Car).ThenInclude(c => c.Modification).ThenInclude(m => m.Model).ThenInclude(m => m.CarBrand).Include(b => b.Customer).ToList();
+            db.Bookings.Include(b => b.StatusType).Include(b => b.Car).ThenInclude(c => c.Modification).ThenInclude(m => m.Model).ThenInclude(m => m.CarBrand).Include(b => b.Customer).ToList();
         }
 
         public List<BookingDTO> GetBookingsByCustomerId(int customer_id)
         {
-            return db.Bookings.Where(b => b.CustomerId == customer_id).Select(i => new BookingDTO(i)).ToList();
+            return db.Bookings.Include(b => b.StatusType).Include(b => b.Car).ThenInclude(c => c.Modification).ThenInclude(m => m.Model).ThenInclude(m => m.CarBrand).Include(b => b.Customer).Where(b => b.CustomerId == customer_id).Select(i => new BookingDTO(i)).ToList();
         }
 
         public bool IsBookingAvailable(int customerId, int carId)
@@ -31,7 +25,7 @@ namespace CarDealership.Repositories
 
             if (car != null)
             {
-                return !db.Bookings.Where(b => b.CustomerId == customerId && b.Car.ModificationId == car.ModificationId).Any();
+                return !db.Bookings.Where(b => b.CustomerId == customerId && b.Car.ModificationId == car.ModificationId && (b.StatusTypeId == 1 || b.StatusTypeId == 3)).Any();
             }
             return false;
             
@@ -39,13 +33,14 @@ namespace CarDealership.Repositories
 
         public List<BookingDTO> GetAll()
         {
-            return db.Bookings.Select(i => new BookingDTO(i)).ToList();
+            return db.Bookings.Include(b => b.StatusType).Include(b => b.Car).ThenInclude(c => c.Modification).ThenInclude(m => m.Model).ThenInclude(m => m.CarBrand).Include(b => b.Customer).Select(i => new BookingDTO(i)).ToList();
         }
 
         public void AddBooking(BookingDTO booking) 
         {
             db.Bookings.Add(new Booking()
             {
+                StatusTypeId = 1,
                 CustomerId = booking.CustomerId,
                 CarId = booking.CarId,
                 Date = booking.Date,
@@ -64,9 +59,26 @@ namespace CarDealership.Repositories
             }
         }
 
+        public int GetCountOpenBookingsByCustomerId(int id)
+        {
+            return db.Bookings.Count(b => b.CustomerId == id && (b.StatusTypeId == 1 || b.StatusTypeId == 3));
+        }
+
         public int GetCountBookingsByCustomerId(int id)
         {
             return db.Bookings.Count(b => b.CustomerId == id);
+        }
+
+        public void Update(BookingDTO booking)
+        {
+            var b = db.Bookings.Find(booking.Id);
+
+            if (b != null)
+            {
+                //b.Date = booking.Date;
+                b.StatusTypeId = booking.StatusId;
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -78,7 +78,7 @@ namespace CarDealership.ViewModels
                 int customer_id = userRepository.GetCurrentCustomer().Id;
                 int car_id = carRepository.GetAvailableByModification(mod.Id).Id;
 
-                if (bookingRepository.GetCountBookingsByCustomerId(customer_id) == 2)
+                if (bookingRepository.GetCountOpenBookingsByCustomerId(customer_id) == 2)
                 {
                     MessageBox.Show("Вы можете забронаровать только 2 автомобиля");
                     return;

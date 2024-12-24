@@ -37,10 +37,14 @@ namespace CarDealership.ViewModels
 
         private List<BookingDTO> bookings;
 
-        public ObservableCollection<BookingDTO> Bookings
+        public List<BookingDTO> Bookings
         {
-            get;
-            set;
+            get => bookings;
+            set
+            {
+                bookings = value;
+                OnPropertyChanged(nameof(Bookings));
+            }
             
         }
 
@@ -64,21 +68,35 @@ namespace CarDealership.ViewModels
             saleRepo = new SaleRepository();
 
             Customer = userRepo.GetCurrentCustomer();
-            Bookings = new(bookingRepo.GetBookingsByCustomerId(Customer.Id));
+            Bookings = bookingRepo.GetBookingsByCustomerId(Customer.Id);
 
-            CancelBooking = new RelayCommand(OnCancelBookingExecuted);
+            CancelBooking = new RelayCommand(OnCancelBookingExecuted, CanCancelBookingExecute);
             Sales = saleRepo.GetByUserId(customer.Id);
         }
 
-        public void OnCancelBookingExecuted(object p)
+        private bool CanCancelBookingExecute(object p)
+        {
+            if (p is BookingDTO booking && booking.StatusId != 2 && booking.StatusId != 4)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void OnCancelBookingExecuted(object p)
         {
             if (p is BookingDTO booking)
             {
                 var res = MessageBox.Show("Отменить бронирование?", "Подтвердить действие", MessageBoxButton.YesNo);
                 if (res == MessageBoxResult.Yes)
                 {
-                    bookingRepo.Delete(booking.Id);
-                    Bookings.Remove(booking);                    
+                    booking.StatusId = 2;
+                    bookingRepo.Update(booking);
+                    Bookings = bookingRepo.GetBookingsByCustomerId(Customer.Id);
+                    //Bookings = new(bookingRepo.GetAll());
+
+                    //bookingRepo.Delete(booking.Id);
+                    //Bookings.Remove(booking);                    
                 }         
             }
         }

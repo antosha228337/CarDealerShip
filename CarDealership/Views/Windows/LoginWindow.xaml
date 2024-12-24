@@ -21,21 +21,16 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel VerticalAlignment="Center">
-            <Image Source="D:\ИГЭУ\конструирование ПО\CarDealerShip\CarDealership\Images\card3.jpg" Width="200" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Border BorderBrush="{StaticResource MaterialDesign.Brush.Primary}" CornerRadius="110" Width="220" Height="220" BorderThickness="4">
+                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="CarSide" Width="200" Height="200" Foreground="{StaticResource MaterialDesign.Brush.Primary}"/>
+            </Border>
             <TextBlock Text="АВТОСАЛОН" FontSize="20" HorizontalAlignment="Center"/>
         </StackPanel>
 
 
         <StackPanel Grid.Column="1">
-
             <ContentPresenter Content="{Binding CurrentView}"/>
             <Button Margin="20 0 20 20" Content="{Binding SwitchButtonText}" Style="{StaticResource MaterialDesignFlatDarkButton}" Command="{Binding ChangeViewCommand}"/>
-
         </StackPanel>
     </Grid>
-
-    
-
-    
-
 </Window>

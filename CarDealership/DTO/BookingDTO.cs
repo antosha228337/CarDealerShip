@@ -16,6 +16,10 @@ namespace CarDealership.DTO
 
         public int CustomerId { get; set; }
 
+        public int StatusId { get; set; }
+
+
+        public string Status { get; set; }
 
         public string CarBrand { get; set; }
 
@@ -49,10 +53,12 @@ namespace CarDealership.DTO
             CarModification = booking.Car.Modification.Name;
             CarPrice = booking.Car.Modification.Price;
             CarVin = booking.Car.Vin;
+            StatusId = booking.StatusTypeId;
 
             CustomerFirstName = booking.Customer.FisrtName;
             CustomerLastName = booking.Customer.LastName;
             CustomerPhone = booking.Customer.PhoneNumber;
+            Status = booking.StatusType.Name;
         }
     }
 }

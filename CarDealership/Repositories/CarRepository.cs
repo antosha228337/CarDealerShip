@@ -1,11 +1,6 @@
 ﻿using CarDealership.DTO;
 using CarDealership.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarDealership.Repositories
 {
@@ -25,7 +20,7 @@ namespace CarDealership.Repositories
 
         public CarDTO GetAvailableByModification(int mod_id)
         {
-            var res = db.Cars.Where(c => c.ModificationId == mod_id && !db.Bookings.Any(b => b.CarId == c.Id)).Select(i => new CarDTO(i)).ToList();
+            var res = db.Cars.Where(c => c.ModificationId == mod_id && !db.Bookings.Any(b => b.CarId == c.Id && (b.StatusTypeId == 1 || b.StatusTypeId == 3))).Select(i => new CarDTO(i)).ToList();
             return res[0];
         }
 

@@ -27,8 +27,6 @@ public partial class CarDealershipMainContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
-    public virtual DbSet<Discount> Discounts { get; set; }
-
     public virtual DbSet<DriveType> DriveTypes { get; set; }
 
     public virtual DbSet<EngineType> EngineTypes { get; set; }
@@ -48,6 +46,8 @@ public partial class CarDealershipMainContext : DbContext
     public virtual DbSet<ServiceSale> ServiceSales { get; set; }
 
     public virtual DbSet<TransmissionType> TransmissionTypes { get; set; }
+
+    public virtual DbSet<StatusType> StatusTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -81,6 +81,7 @@ public partial class CarDealershipMainContext : DbContext
             entity.Property(e => e.CarId).HasColumnName("car_id");
             entity.Property(e => e.CustomerId).HasColumnName("customer_id");
             entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.StatusTypeId).HasColumnName("status_type_id");
 
             entity.HasOne(d => d.Car).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.CarId)
@@ -91,6 +92,11 @@ public partial class CarDealershipMainContext : DbContext
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("customer_fk");
+
+            entity.HasOne(d => d.StatusType).WithMany(p => p.Bookings)
+                .HasForeignKey(d => d.StatusTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("status_type_fk");
         });
 
         modelBuilder.Entity<Car>(entity =>
@@ -170,21 +176,6 @@ public partial class CarDealershipMainContext : DbContext
                 .HasColumnName("third_name");
         });
 
-        modelBuilder.Entity<Discount>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("discount_pkey");
-
-            entity.ToTable("discount");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DateEnd).HasColumnName("date_end");
-            entity.Property(e => e.DateStart).HasColumnName("date_start");
-            entity.Property(e => e.Name)
-                .HasMaxLength(100)
-                .HasColumnName("name");
-            entity.Property(e => e.Percentage).HasColumnName("percentage");
-        });
-
         modelBuilder.Entity<DriveType>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("drive_type_pkey");
@@ -217,26 +208,20 @@ public partial class CarDealershipMainContext : DbContext
 
             entity.HasIndex(e => e.CarBrandId, "fki_car_brand_fk");
 
-            entity.HasIndex(e => e.DiscountId, "fki_discount_fk");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CarBrandId).HasColumnName("car_brand_id");
-            entity.Property(e => e.DateReceipt).HasColumnName("date_receipt");
-            entity.Property(e => e.DiscountId).HasColumnName("discount_id");
+
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.StockCuantity).HasColumnName("stock_cuantity");
+
             entity.Property(e => e.Image).HasColumnName("image");
 
             entity.HasOne(d => d.CarBrand).WithMany(p => p.Models)
                 .HasForeignKey(d => d.CarBrandId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("car_brand_fk");
-
-            entity.HasOne(d => d.Discount).WithMany(p => p.Models)
-                .HasForeignKey(d => d.DiscountId)
-                .HasConstraintName("discount_fk");
         });
 
         modelBuilder.Entity<Modification>(entity =>
@@ -350,6 +335,17 @@ public partial class CarDealershipMainContext : DbContext
                 .HasForeignKey(d => d.SellerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("seller_fk");
+        });
+
+        modelBuilder.Entity<StatusType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("status_type_pkey");
+
+            entity.ToTable("status_type");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasColumnName("name").HasMaxLength(20);
+
         });
 
         modelBuilder.Entity<Seller>(entity =>
