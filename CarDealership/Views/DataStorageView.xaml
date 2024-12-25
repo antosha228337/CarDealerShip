@@ -28,7 +28,7 @@
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddCarBrandCommand}"/>
                     <Button Content="Изменить" Command="{Binding EditCarBrandCommand}"/>
-                    <Button Content="Удалить" Command="{Binding RemoveCarBrandCommand}"/>
+                    <!--<Button Content="Удалить" Command="{Binding RemoveCarBrandCommand}"/>-->
                 </StackPanel>
                 
                 <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedCarBrand}" ItemsSource="{Binding Brands}" IsReadOnly="True" AutoGenerateColumns="False">
@@ -54,7 +54,7 @@
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddModelCommand}"/>
                     <Button Content="Изменить" Command="{Binding EditModelCommand}"/>
-                    <Button Content="Удалить" Command="{Binding RemoveModelCommand}"/>
+                    <!--<Button Content="Удалить" Command="{Binding RemoveModelCommand}"/>-->
                 </StackPanel>
                 
                 <DataGrid Grid.Row="1" ItemsSource="{Binding Models}" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedModel}" VerticalScrollBarVisibility="Visible">
@@ -90,7 +90,7 @@
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddModificationCommand}"/>
                     <Button Content="Изменить" Command="{Binding EditModificationCommand}"/>
-                    <Button Content="Удалить" Command="{Binding RemoveModificationCommand}"/>
+                    <!--<Button Content="Удалить" Command="{Binding RemoveModificationCommand}"/>-->
                 </StackPanel>
 
                 <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedModification}" ItemsSource="{Binding Modifications}" AutoGenerateColumns="False" IsReadOnly="True">
@@ -124,7 +124,7 @@
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Button Content="Добавить" Command="{Binding AddCarCommand}"/>
                     <Button Content="Изменить" Command="{Binding EditCarCommand}"/>
-                    <Button Content="Удалить" Command="{Binding RemoveCarCommand}"/>
+                    <!--<Button Content="Удалить" Command="{Binding RemoveCarCommand}"/>-->
                 </StackPanel>
 
                 <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding Cars}" AutoGenerateColumns="False" IsReadOnly="True">

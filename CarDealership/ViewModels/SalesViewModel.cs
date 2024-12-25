@@ -37,6 +37,7 @@ namespace CarDealership.ViewModels
             {
                 selectedSale = value;
                 Payments = paymentRepo.GetBySaleId(selectedSale.Id);
+                Services = saleRepository.GetServices(selectedSale.Id);
                 OnPropertyChanged(nameof(SelectedSale));
             }
         }
@@ -50,6 +51,18 @@ namespace CarDealership.ViewModels
             {
                 payments = value;
                 OnPropertyChanged(nameof(Payments));
+            }
+        }
+
+        private List<ServiceDTO> services;
+
+        public List<ServiceDTO> Services
+        {
+            get => services;
+            set
+            {
+                services = value;
+                OnPropertyChanged(nameof(Services));
             }
         }
         #endregion

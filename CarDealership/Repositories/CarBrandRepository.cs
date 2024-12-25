@@ -1,6 +1,7 @@
 ﻿using CarDealership.DTO;
 using CarDealership.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using DAL;
 
 namespace CarDealership.Repositories
 {

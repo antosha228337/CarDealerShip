@@ -43,7 +43,7 @@
                 </ComboBox>
             </Grid>
 
-            <Separator/>
+
 
             <Grid>
 
@@ -76,7 +76,7 @@
                 <metro:NumericUpDown Value="{Binding HorsePower}" Margin="4" Grid.Row="1" Grid.Column="1" Minimum="0" NumericInputMode="Numbers" Maximum="1200" HideUpDownButtons="True" BorderBrush="{StaticResource MaterialDesign.Brush.Primary}"/>
 
                 <TextBlock Grid.Row="2" Text="Мощность двигателя" />
-                <metro:NumericUpDown Value="{Binding EngineCapacity}" Margin="4" Grid.Row="2" Grid.Column="1" Minimum="0" NumericInputMode="Decimal" Maximum="3.0" HideUpDownButtons="True" BorderBrush="{StaticResource MaterialDesign.Brush.Primary}"/>
+                <metro:NumericUpDown Value="{Binding EngineCapacity}" StringFormat="N1" Margin="4" Grid.Row="2" Grid.Column="1" Minimum="0" NumericInputMode="Decimal" Maximum="3.0" HideUpDownButtons="True" BorderBrush="{StaticResource MaterialDesign.Brush.Primary}"/>
 
                 <TextBlock Grid.Row="3" Text="Цена"/>
                 <metro:NumericUpDown Value="{Binding Price}" Margin="4" Grid.Row="3" Grid.Column="1" Minimum="0" NumericInputMode="Numbers" Maximum="99999999" HideUpDownButtons="True" BorderBrush="{StaticResource MaterialDesign.Brush.Primary}"/>

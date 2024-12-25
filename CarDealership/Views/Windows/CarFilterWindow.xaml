@@ -59,12 +59,12 @@
 
 
 
-        <TextBlock Text="Коробка:" Grid.Row="2" Grid.Column="0"/>
+        <TextBlock Text="Трансмиссия:" Grid.Row="2" Grid.Column="0"/>
         <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Transmissions}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTransmissionType}"/>
 
 
 
-        <TextBlock Text="Двигатель:"  Grid.Row="3" Grid.Column="0"/>
+        <TextBlock Text="Тип двигателя:"  Grid.Row="3" Grid.Column="0"/>
         <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Engines}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEngineType}"/>
 
 

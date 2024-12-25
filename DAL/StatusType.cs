@@ -1,4 +1,4 @@
-﻿namespace CarDealership;
+﻿namespace DAL;
 
 public partial class StatusType
 {

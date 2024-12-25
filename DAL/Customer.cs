@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CarDealership;
+namespace DAL;
 
-public partial class Seller
+public partial class Customer
 {
     public int Id { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    public string FisrtName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
 
@@ -19,7 +19,7 @@ public partial class Seller
 
     public string Password { get; set; } = null!;
 
-    public int WorkExperience { get; set; }
+    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
 }

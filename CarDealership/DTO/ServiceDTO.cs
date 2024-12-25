@@ -1,5 +1,6 @@
 ﻿using CarDealership.Utils;
 using System.Windows.Media.Imaging;
+using DAL;
 
 namespace CarDealership.DTO
 {

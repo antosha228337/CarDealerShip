@@ -30,6 +30,7 @@
                 <TextBlock Text="До" VerticalAlignment="Center"/>
                 <DatePicker Width="100" Margin="10 0 10 0" SelectedDate="{Binding DateEnd}"/>
                 <Button Content="Показать" Command="{Binding ShowReportCommand}"/>
+                <Button Content="Скачать" Margin="10 0 10 0" Command="{Binding SaveReportCommand}"/>
             </StackPanel>
             
         </StackPanel>

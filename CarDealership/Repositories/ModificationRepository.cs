@@ -1,6 +1,7 @@
 ﻿using CarDealership.DTO;
 using CarDealership.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using DAL;
 
 namespace CarDealership.Repositories
 {
@@ -47,9 +48,15 @@ namespace CarDealership.Repositories
             return stockQuantity - countBookedcars;
         }
 
-        public int GetStockQuantity(int mod_id)
+        private int GetStockQuantity(int mod_id)
         {
-            return db.Cars.Where(c => c.ModificationId == mod_id).Count();
+            int count = db.Cars
+                    .Where(c => c.ModificationId == mod_id)
+                    .Count(c => !db.Sales.Any(s => s.CarId == c.Id));
+
+            return count;
+
+            //return db.Cars.Where(c => c.ModificationId == mod_id).Count();
         }
 
         public List<ModificationDTO> GetByFilter(CarBrandDTO carBrand, EngineTypeDTO engineType, TransmissionTypeDTO trType, BodyTypeDTO bodyType, bool isAv)

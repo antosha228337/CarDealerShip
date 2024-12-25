@@ -1,6 +1,7 @@
 ﻿using CarDealership.DTO;
 using CarDealership.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using DAL;
 
 namespace CarDealership.Repositories
 {
@@ -44,6 +45,19 @@ namespace CarDealership.Repositories
         public List<SaleDTO> GetAll()
         {
             return db.Sales.Select(i => new SaleDTO(i)).ToList();
+        }
+
+        public List<ServiceDTO> GetServices(int sale_id)
+        {
+            var res = db.ServiceSales
+                        .Where(ss => ss.SaleId == sale_id)
+                        .Join(db.Services,
+                              ss => ss.ServiceId,
+                              s => s.Id,
+                              (ss, s) => new ServiceDTO(s))
+                        .ToList();
+
+            return res;
         }
 
         public List<SaleDTO> GetByUserId(int id)

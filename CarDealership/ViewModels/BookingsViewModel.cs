@@ -61,7 +61,7 @@ namespace CarDealership.ViewModels
 
         private bool CanCancelBookingExecute(object p)
         {
-            return selectedBooking != null && selectedBooking.StatusId == 1;
+            return selectedBooking != null && (selectedBooking.StatusId == 1 || selectedBooking.StatusId == 3);
         }
 
         private void OnCancelBookingExecuted(object p)
@@ -73,6 +73,8 @@ namespace CarDealership.ViewModels
                 {
                    selectedBooking.StatusId = 2;
                     bookingRepo.Update(selectedBooking);
+
+                    Bookings = bookingRepo.GetAll();
                 }
             }
         }
@@ -145,6 +147,7 @@ namespace CarDealership.ViewModels
                 {
                     selectedBooking.StatusId = 3;
                     bookingRepo.Update(selectedBooking);
+                    Bookings = bookingRepo.GetAll();
                 }
             }
         }

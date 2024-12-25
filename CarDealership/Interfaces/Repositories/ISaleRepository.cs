@@ -13,5 +13,6 @@ namespace CarDealership.Interfaces.Repositories
         public List<SaleDTO> GetByUserId(int id);
         void Add(SaleDTO sale);
         public List<SaleDTO> SalesByDate(DateOnly start, DateOnly end);
+        public List<ServiceDTO> GetServices(int sale_id);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace CarDealership.DTO
+﻿using DAL;
+
+namespace CarDealership.DTO
 {
     class DriveTypeDTO
     {

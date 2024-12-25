@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CarDealership;
+namespace DAL;
 
 public partial class Credit
 {

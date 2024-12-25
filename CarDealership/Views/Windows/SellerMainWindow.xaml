@@ -16,36 +16,36 @@
     <DockPanel>
 
         <Border>
-            <StackPanel Orientation="Vertical" Margin="4">
+            <StackPanel Orientation="Vertical" Margin="4" Background="WhiteSmoke">
 
                 <StackPanel.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignIconForegroundButton}">
-                        <Setter Property="Margin" Value="2"/>
+                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                        <Setter Property="Width" Value="120"/>
                     </Style>
                 </StackPanel.Resources>
 
-                <RadioButton Command="{Binding ShowDataStorageCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                <RadioButton Command="{Binding ShowDataStorageCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Database"/>
                         <TextBlock Text="Данные"/>
                     </StackPanel>
                 </RadioButton>
 
-                <RadioButton Command="{Binding ShowBookingViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                <RadioButton Command="{Binding ShowBookingViewCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Book"/>
                         <TextBlock Text="Брони"/>
                     </StackPanel>
                 </RadioButton>
 
-                <RadioButton Command="{Binding ShowSalesCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                <RadioButton Command="{Binding ShowSalesCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Sale"/>
                         <TextBlock Text="Продажи"/>
                     </StackPanel>
                 </RadioButton>
 
-                <RadioButton Command="{Binding ShowReportViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                <RadioButton Command="{Binding ShowReportViewCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FileDocument"/>
                         <TextBlock Text="Отчет"/>

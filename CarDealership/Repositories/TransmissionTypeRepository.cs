@@ -1,5 +1,6 @@
 ﻿using CarDealership.DTO;
 using CarDealership.Interfaces.Repositories;
+using DAL;
 
 namespace CarDealership.Repositories
 {

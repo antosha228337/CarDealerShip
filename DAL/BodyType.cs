@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CarDealership;
+namespace DAL;
 
-public partial class TransmissionType
+public partial class BodyType
 {
     public int Id { get; set; }
 

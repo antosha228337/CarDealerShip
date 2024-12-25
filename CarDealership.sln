@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealership", "CarDealership\CarDealership.csproj", "{11EC6211-E49D-46A4-AC4B-A83A6CC7220C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{F213482E-22AC-4DEF-809A-D83B11BEC039}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{11EC6211-E49D-46A4-AC4B-A83A6CC7220C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11EC6211-E49D-46A4-AC4B-A83A6CC7220C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11EC6211-E49D-46A4-AC4B-A83A6CC7220C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F213482E-22AC-4DEF-809A-D83B11BEC039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F213482E-22AC-4DEF-809A-D83B11BEC039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F213482E-22AC-4DEF-809A-D83B11BEC039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F213482E-22AC-4DEF-809A-D83B11BEC039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

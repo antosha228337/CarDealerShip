@@ -18,22 +18,22 @@
         <Border>
             <StackPanel Orientation="Vertical" Margin="4">
 
+
                 <StackPanel.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignIconForegroundButton}">
-                        <Setter Property="Margin" Value="2"/>
+                    <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                        <Setter Property="Width" Value="120"/>
                     </Style>
                 </StackPanel.Resources>
 
-                <!--<CheckBox Command="{Binding ChangeThemeCommand}" Style="{StaticResource MaterialDesignSwitchDarkToggleButton}"/>-->
 
-                <RadioButton Command="{Binding ShowCarsViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                <RadioButton Command="{Binding ShowCarsViewCommand}" >
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Car"/>
                         <TextBlock Text="Авто"/>
                     </StackPanel>
                 </RadioButton>
 
-                <RadioButton Command="{Binding ShowUserViewCommand}" Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                <RadioButton Command="{Binding ShowUserViewCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Account"/>
                         <TextBlock Text="Профиль"/>

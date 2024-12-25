@@ -30,6 +30,7 @@
 
         <DataGrid Grid.Row="1" SelectedItem="{Binding SelectedBooking}" ItemsSource="{Binding Bookings}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding CustomerFirstName}"/>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding CustomerLastName}"/>
                 <DataGridTextColumn Header="Телефон" Binding="{Binding CustomerPhone}"/>

@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:CarDealership.Views"
              xmlns:vm="clr-namespace:CarDealership.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="LightGray">
     
     <UserControl.DataContext>
         <vm:SalesViewModel/>
     </UserControl.DataContext>
 
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
@@ -33,19 +33,57 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Column="1" Background="WhiteSmoke">
-            <TextBlock Text="Платежи" HorizontalAlignment="Center" />
+        <Border Grid.Column="1" Margin="10 0 0 0" Background="white">
+            <TabControl Width="auto">
+                <TabItem Header="платежи">
+                    <Grid Grid.Column="1">
 
-            <ListView ItemsSource="{Binding Payments}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date}"/>
+                        <Grid.RowDefinitions>
 
-                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <ListView ItemsSource="{Binding Payments}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date}"/>
+
+                                    <GridViewColumn Header="Сумма (руб.)" DisplayMemberBinding="{Binding Amount}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+
+                        <TextBlock Grid.Row="1" Margin="10">
+<Run Text="Итого оплачено (руб.):"/>
+<Run Text="{Binding SelectedSale.PaidSum}"/>
+<Run Text="/"/>
+<Run Text="{Binding SelectedSale.TotalPrice}"/>
+                        </TextBlock>
+
+
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="доп. усл.">
+                    <ListView ItemsSource="{Binding Services}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Name}"/>
+
+                                <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+
+            </TabControl>
+        </Border>
+
+        
+
+        
 
         
 

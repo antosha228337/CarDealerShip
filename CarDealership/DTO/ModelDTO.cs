@@ -1,10 +1,5 @@
 ﻿using CarDealership.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using DAL;
 using System.Windows.Media.Imaging;
 
 namespace CarDealership.DTO

@@ -3,8 +3,14 @@ using CarDealership.Interfaces.Repositories;
 using CarDealership.Repositories;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Microsoft.Win32;
+using CsvHelper.Configuration;
+using CsvHelper;
 using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +35,8 @@ namespace CarDealership.ViewModels
                 OnPropertyChanged(nameof(SeriesReport));
             }
         }
+
+        private Dictionary<string, int> models_count = new();
 
         private DateTime startDate;
 
@@ -55,6 +63,7 @@ namespace CarDealership.ViewModels
         }
 
         public ICommand ShowReportCommand { get; set; }
+        public ICommand SaveReportCommand { get; set; }
 
         public ReportViewModel()
         {
@@ -65,6 +74,7 @@ namespace CarDealership.ViewModels
 
 
             ShowReportCommand = new RelayCommand(OnShowReportCommandExecuted);
+            SaveReportCommand = new RelayCommand(OnSaveReportCommandExecuted, CanSaveReportCommandExecute);
         }
 
         private void OnShowReportCommandExecuted(object p)
@@ -80,6 +90,7 @@ namespace CarDealership.ViewModels
                 else modelsCount[sale.CarModel] = 1;
             }
 
+            models_count = modelsCount;
 
             foreach (var item in modelsCount)
             {
@@ -88,5 +99,40 @@ namespace CarDealership.ViewModels
 
             SeriesReport = s;
         }
+
+        private bool CanSaveReportCommandExecute(object p)
+        {
+            return seriesReport != null && seriesReport.Count != 0;
+        }
+
+        private void OnSaveReportCommandExecuted(object p)
+        {
+            var saveFileDialog = new SaveFileDialog
+            {
+                Title = "Сохранить файл как",
+                Filter = "Все файлы (*.*)|*.*",
+                FileName = "Report.csv",
+                CheckPathExists = true
+            };
+
+            if (saveFileDialog.ShowDialog() == false) return;
+
+
+
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = "–",
+                ShouldUseConstructorParameters = _ => false
+            };
+
+            using (var writer = new StreamWriter(saveFileDialog.FileName, false, Encoding.UTF8))
+            using (var csv = new CsvWriter(writer, csvConfig))
+            {
+                csv.WriteRecords(models_count.Select(item => new { Модель = item.Key, Коичество = item.Value }));
+            }
+
+        }
+
+
     }
 }
